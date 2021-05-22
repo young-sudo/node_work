@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/student_teacher.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" type="text/css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/student_teacher.js"></script>
+</head>
+<body>
+    <div id="big_div">
+        <div class="left_div">
+            <div class="touxiang">
+                <div class="img_div" ></div>
+                <span>&nbsp;打卡 </span>
+                <div class="left_span">
+                    <span style="font-size: 25px;"><%=key.user %></span>
+                    <div class="img_qq"><img src="/images/student1.png" width="40px" height="40px"></div>
+                    <div class="img_qq_big"><img src="/images/student1.png" width="200px" height="200px"></div>
+                    <br>
+                    <p><%= key.identity %></p>
+                </div>
+            </div>
+            <div>
+                <table class="table" id="gongneng">
+                    <tr>
+                        <td>账号详情</td>
+                    </tr>
+                    <tr>
+                        <td>周考<span style="float: right;">></span></td>
+                    </tr>
+                    <tr>
+                        <td>月考<span style="float: right;">></span></td>
+                    </tr>
+                    <tr>
+                        <td>期中考<span style="float: right;">></span></td>
+                    </tr>
+                    <tr>
+                        <td>期末考<span style="float: right;">></span></td>
+                    </tr>
+                    <tr>
+                        <td>联考<span style="float: right;">></span></td>
+                    </tr>
+                    <tr>
+                        <td>问题反馈 ?</td>
+                    </tr>
+                </table>
+                <div class="set_div">
+                    <p>设置</p>
+                    <div class="settype_div">
+                        <p onclick="login()">注册账号</p>
+                        <p onclick="islogout()"> 注销账号</p>
+                       <p onclick="logout()">退出登陆</p>
+                     </div>
+                </div>
+            </div>
+        </div>
+          <div class="right_div">
+            <div id="right_top_div"><%= key.text %>的成绩</div>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>number</th>
+                        <th>name</th>
+                        <th>sex</th>
+                        <th>type</th>
+                        <th>score</th>
+                        <th>exam</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% list.forEach ((o,i)=>{ %>
+                       <tr>
+                           <td><%= o.number %></td>
+                           <td><%= o.name %></td>
+                           <td><%= o.sex %></td>
+                           <td><%= o.type %></td>
+                           <td><%= o.score %></td>
+                           <td><%= o.exam %></td>
+                       </tr>
+                    <% }) %>
+                  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

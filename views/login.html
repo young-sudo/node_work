@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/login.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/login.js"></script>
+</head>
+
+<body>
+    <div class="big_div">
+        <div class="first_div">
+            
+        </div>
+        <div class="second_div">
+            <form style="text-align: center;" action="/login" method="POST"  onsubmit="return check(this)">
+                <p><label>用户名：<input type="text" name="user"></label></p>
+                
+                <p><label>密&nbsp;&nbsp;&nbsp;码：<input type="password" name="password"></label></p>
+            
+                <p><input type="submit" value="登陆"
+                        style="width: 220px; height: 25px; background-color:  rgb(6 97 250); font-size: 16px;border:1px solid blue;border-radius: 5px;"></p>
+                    </form>
+        </div>
+        <div class="third_div">
+            <span>没有账号？点击</span>
+            <a href="/register" style="text-decoration: none;">注册账号</a>
+        </div>
+        <div class="fourth_div">
+            <img src="/images/login.jpg" width="70px" height="70px">
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+.big_div {
+    width: 432px;
+    height: 350px;
+    background-color: white;
+    border: blue solid 1px;
+    position: relative;
+    left: 37%;
+    top: 60px;
+    border-radius: 8px;
+}
+
+.first_div {
+    border-radius: 8px;
+    width: 432px;
+    height: 130px;
+    padding: 1px;
+    margin: -1px;
+    background-color: rgb(5 200 252);
+    background-image: url(/images/login1.gif);
+    background-size: 100% 100%;
+}
+
+.second_div {
+    position: relative;
+    top: 25px;
+}
+
+.third_div {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+.third_div span{
+    font-size: 14px;
+    color:#8080808a;
+}
+input {
+  
+    height: 25px;
+    border: 0;
+    outline: 1px solid #8080808a;
+}
+
+input:focus {
+    outline: 2px solid blue;
+
+}
+
+.fourth_div {
+    width: 70px;
+    height: 70px;
+    position: absolute;
+    top: 92px;
+    left: 42%;
+    border-radius: 50%;
+    border: blue solid 1px;
+    background-color: white;
+    overflow: hidden;
+}

@@ -1,0 +1,24 @@
+[
+    
+    {
+        "inp": "number"
+    },
+    {
+        "inp": "name"
+    },
+    {
+        "inp": "sex"
+    },
+    {
+        "inp": "age"
+    },
+    {
+        "inp": "user"
+    },
+    {
+        "inp": "password"
+    },
+    {
+        "inp": "phonenumber"
+    }
+]

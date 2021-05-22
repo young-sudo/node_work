@@ -1,0 +1,90 @@
+body{
+    background-image: url(/images/register1.jpg);
+    background-size: 100% 100%;
+}
+#main_div{
+    width: 600px;
+    position: relative;
+
+    left: 30%;
+}
+
+#float_div{
+    /* background-color: green; */
+    width: 150px;
+    height: 100%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    /* background-color: white; */
+}
+#f1{
+    width: 100%;
+    height: 150px;
+    border: 1px solid black;
+    border-radius:50% ;
+    background-image: url(/images/login.jpg);
+    background-size: 100% 100%;
+}
+#f2{
+    width: 100%;
+    height: 80px;;
+    background-color: white;
+    color: black;
+   
+  
+}
+#f3{
+    width: 100%;
+    height: 80px;;
+    background-color:white;
+    color: black;
+   
+}
+form div{
+    padding: 0px;
+    margin: 10px;
+    height: 60px;
+    font-size: 20px;
+    color: blue;
+}
+input{
+    width: 400px;
+    height: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    border-color: grey;
+    color: green;
+    font-size: 16px;
+}
+input:hover{
+    border-color:blue;
+    color:red;
+}
+
+.outinp{
+    width: 50px;
+    height: 30px;
+    text-align: center;
+}
+
+.f2_fr{
+    width: 0;
+    height: 0;
+    border: 40px solid black;
+    border-left-color: blue;
+    border-right: none;
+    position: absolute;
+    top: 173px;
+    left: 150px;
+}
+.f3_fr{
+    width: 0;
+    height: 0;
+    border: 40px solid black;
+    border-left-color: red;
+    border-right: none;
+    position: absolute;
+    top: 274px;
+    left: 150px;
+}

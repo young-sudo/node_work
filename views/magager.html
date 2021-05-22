@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" crossorigin="anonymous" href="/stylesheets/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="/stylesheets/magager.css" type="text/css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/magager.js"></script>
+</head>
+
+<body>
+   
+    <div id="big_div">
+        <p class="div_p">后台管理</p>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>number</th>
+                    <th>name</th>
+                    <th>sex</th>
+                    <th>age</th>
+                    <th>user</th>
+                    <th>password</th>
+                    <th>phonenumber</th>
+                    <th>identity *</th>
+                    <th>islogout</th>
+                    <th>createTime</th>
+                    <th>logoutTime</th>
+                    <th>删除</th>
+                </tr>
+            </thead>
+            <tbody class="showData">
+                <% list.forEach((obj,i)=> { %>
+                    <tr ind="<%=i %>" class="tr">
+                        <td><input type="text" value="<%=obj.id %>"></td>
+                        <td><input type="text" value="<%=obj.number %>"></td>
+                        <td><input type="text" value="<%=obj.name %>"></td>
+                        <td><input type="text" value="<%=obj.sex %>"></td>
+                        <td><input type="text" value="<%=obj.age %>"></td>
+                        <td><input type="text" value="<%=obj.user %>" ></td>
+                        <td><input type="text" value="<%=obj.password %>"></td>
+                        <td><input type="text" value="<%=obj.phonenumber %>"></td>
+                        <td><input type="text" value="<%=obj.identity %>">*</td>
+                        <td><input type="text" value="<%=obj.islogout %>"></td>
+                        <td><input type="text" value="<%=obj.create_time %>" style="width: 150px;"></td>
+                        <td><input type="text" value="<%=obj.logout_time %>" style="width: 150px;"></td>
+                        <td><input type="text" class="del_button" ind="<%=i %>" value="删除"></td>
+                    </tr>
+                    <% }) %>
+
+            </tbody>
+        </table>
+        <div class="touxiang" onclick="disIdentity()"></div>
+        <div id="disIdentity">
+            <ul>
+                <li>your user:<%=key.user %></li>
+                <li>identity:<%= key.identity%></li>
+            </ul>
+        </div>
+        <div class="search"><label><input type="text" id="search" placeholder="user" style="font-size: 30px;"><img src="/images/magager1.gif" width="50px" height="50px"></label></div>
+         <div class="float">
+            <div style="height: 100px; border:1px solid black; background-color: gray;" onclick="float(this)" id="all"></div>
+            <div style="height: 100px; border:1px solid black;" onclick="float(this)" id="student"></div>
+            <div style="height: 100px; border:1px solid black;" onclick="float(this)" id="teacher"></div>
+            <div style="height: 100px; border:1px solid black;" onclick="float(this)" id="mamager"></div>
+            <div style="height: 100px; border:1px solid black;" onclick="float(this)" id="add"></div>
+        </div>
+    </div>
+    <script src="/javascripts/magager_search.js"></script>
+    <script src="/javascripts/magager_change.js"></script>
+</body>
+
+</html>

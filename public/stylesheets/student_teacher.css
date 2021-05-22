@@ -1,0 +1,107 @@
+#big_div{
+    width: 100%;
+    height: 100%;
+    /* background-color: gray; */
+    position: relative;
+}
+
+.left_div{
+    width: 20%;
+    background-color: #5151dd;
+    height: 100%;
+    position: fixed;
+    color: white;
+    font-size: 16px;
+    border: 1px solid blue;
+}
+.touxiang{
+    position: relative;
+    width: 100%;
+    height: 160px;
+    background-color: #5151dd;
+}
+.img_div{
+    background-image: url(/images/login.jpg);
+    background-size: 100% 100%;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    position: absolute;
+    left: 20px;
+    top: 35px;
+}
+.left_div .table tr{
+    width: 100%;
+    height: 60px;
+}
+.left_div .table tr>td{
+    line-height: 50px;
+}
+.left_div .left_span{
+    position: absolute;
+    left: 45%;
+    top: 30px;
+ 
+}
+.img_qq{
+    position: absolute;
+    top: 10px;
+    left: 100px;
+}
+.img_qq_big{
+    position: absolute;
+    top: 80px;
+    left: -40px;
+    display: none;
+}
+.set_div{
+    position: absolute;
+    top: 94%;
+    left: 80%;
+}
+.right_div{
+    width: 80%;
+    height: 720px;
+    color:white;
+    /* background-color: lime; */
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    background-image: url('/images/student.PNG');
+    background-size: 100% 100%;
+}
+#right_top_div{
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    /* background-color: rgba(24, 146, 228, 0.603); */
+    top: 0px;
+    text-align: center;
+    line-height: 50px;
+    font-size: 20px;
+}
+.right_div th{
+    text-align: center;
+    font-size: 18px;
+}
+.right_div td{
+    text-align: center;
+    font-size: 16px;
+}
+.right_div .table{
+    position: relative;
+    left: 0px;
+    top: 50px;
+}
+.settype_div{
+    font-size: 18px;
+    color: black;
+    width: 80px;
+    height: 90px;
+    /* background-color: #bf1616; */
+    position: absolute;
+    top: -73px;
+    left: -90px;
+    display: none;
+}
+
