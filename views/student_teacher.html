@@ -17,35 +17,35 @@
                 <div class="img_div" ></div>
                 <span>&nbsp;打卡 </span>
                 <div class="left_span">
-                    <span style="font-size: 25px;"><%=key.user %></span>
+                    <span style="font-size: 25px;" id="user"><%=key.user %></span>
                     <div class="img_qq"><img src="/images/student1.png" width="40px" height="40px"></div>
                     <div class="img_qq_big"><img src="/images/student1.png" width="200px" height="200px"></div>
                     <br>
-                    <p><%= key.identity %></p>
+                    <p id="identity"><%= key.identity %></p>
                 </div>
             </div>
             <div>
                 <table class="table" id="gongneng">
                     <tr>
-                        <td>账号详情</td>
+                        <td class="left_type">账号详情</td>
                     </tr>
                     <tr>
-                        <td>周考<span style="float: right;">></span></td>
+                        <td class="left_type">周考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td>月考<span style="float: right;">></span></td>
+                        <td class="left_type">月考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td>期中考<span style="float: right;">></span></td>
+                        <td class="left_type">期中考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td>期末考<span style="float: right;">></span></td>
+                        <td class="left_type">期末考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td>联考<span style="float: right;">></span></td>
+                        <td class="left_type">联考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td>问题反馈 ?</td>
+                        <td class="left_type">问题反馈<span>?</span></td>
                     </tr>
                 </table>
                 <div class="set_div">
@@ -59,7 +59,7 @@
             </div>
         </div>
           <div class="right_div">
-            <div id="right_top_div"><%= key.text %>的成绩</div>
+            <div id="right_top_div"><%= key.title %>的成绩</div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -71,7 +71,7 @@
                         <th>exam</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="showData">
                     <% list.forEach ((o,i)=>{ %>
                        <tr>
                            <td><%= o.number %></td>

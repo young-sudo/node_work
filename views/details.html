@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/details.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/details.js"></script>
+</head>
+<body>
+    <h2>用户详情</h2>
+     <div class="big_div">
+       <form action="/details" method="POST">
+        <table class="table table-bordered">
+            <tbody id="body">
+                <input type="hidden" value="<%= value.id %>" name="id">
+             <tr>
+                 <td><span>number:</span><input type="text" value="<%= value.number %>" placeholder="number" name="number" oninput="value=value.replace(/[^\d]/g,'')"></td>
+             </tr>
+             <tr>
+                 <td><span>name:</span> <input type="text" value="<%= value.name %>" placeholder="name" name="name"></td>
+             </tr>
+             <tr>
+                 <td> <span>sex:</span><input type="text" value="<%= value.sex %>" placeholder="sex" name="sex"></td>
+             </tr>
+             <tr>
+                 <td><span>age:</span> <input type="text" value="<%= value.age %>" placeholder="age" name="age" oninput="value=value.replace(/[^\d]/g,'')"></td>
+             </tr>
+             <tr>
+                 <td> <span>user:</span><input type="text"  value="<%= value.user %>" placeholder="user" name="user"></td>
+             </tr>
+             <tr>
+                 <td><span>password:</span> <input type="text" value="<%= value.password %>" placeholder="password" name="password" id="password" ></td>
+             </tr>
+             <tr>
+                 <td><span>phonenumber:</span><input type="text" value="<%= value.phonenumber %>" placeholder="phonenumber" name="phonenumber" oninput="value=value.replace(/[^\d]/g,'')"></td>
+             </tr>
+             <tr>
+                 <td> <span>identity:</span> <input type="text" value="<%= value.identity %>" placeholder="identity" name="identity"></td>
+             </tr>
+             <tr>
+                 <td><span>createTime:</span> <input type="text" value="<%= value.create_time %>" placeholder="createTime" name="createTime" readonly="readonly"></td>
+             </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <input type="button" style="width: 100px; float: left;" value="返回" id="but_return">
+                        <input type="submit" style="width: 100px;">
+                    </td>
+                </tr>
+            </tfoot>
+         </table>
+       </form>
+   <button id="see_button">see</button>
+    </div>
+</body>
+</html>

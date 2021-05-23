@@ -14,6 +14,7 @@ var magagerRouter =require('./routes/magager');
 var deleteRouter =require('./routes/delete');
 var studentRouter =require('./routes/student');
 var teacherRouter =require('./routes/teacher');
+var detailsRouter =require('./routes/details');
 
 var app = express();
 
@@ -28,7 +29,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('text'));
 app.use(session({
   secret: "text",
-  cookie: { maxAge: 6000000 },
+  cookie: { maxAge: 600000 },
   resave: false,
   saveUninitialized: true
 }));
@@ -42,6 +43,7 @@ app.use('/magager',magagerRouter);
 app.use('/delete',deleteRouter);
 app.use('/student',studentRouter);
 app.use('/teacher',teacherRouter);
+app.use('/details',detailsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

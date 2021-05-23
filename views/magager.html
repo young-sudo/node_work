@@ -55,12 +55,10 @@
 
             </tbody>
         </table>
-        <div class="touxiang" onclick="disIdentity()"></div>
-        <div id="disIdentity">
-            <ul>
-                <li>your user:<%=key.user %></li>
-                <li>identity:<%= key.identity%></li>
-            </ul>
+        <div class="touxiang" onclick="display()"></div>
+        <div class="gongneng">
+            <p onclick="details()">用户详情</p>
+            <p onclick="but_return()">退出登陆</p>
         </div>
         <div class="search"><label><input type="text" id="search" placeholder="user" style="font-size: 30px;"><img src="/images/magager1.gif" width="50px" height="50px"></label></div>
          <div class="float">

@@ -1,0 +1,32 @@
+body{
+    /* background-color: #3434f3; */
+    background-image: url('/images/register1.jpg');
+    background-size: 100% 100%;
+}
+h2{
+ text-align: center;
+ color: white;
+}
+.big_div{
+    width: 900px;
+    height: 513px;
+    /* background-color: #3434f3; */
+    position: relative;
+    left: 300px;
+    top: 0px;
+}
+input{
+    height: 40px;
+    width: 700px;
+    float: right;
+    background-color: white;
+}
+.big_div table span{
+    font-size: 20px;
+    color: white;
+}
+#see_button{
+    position: absolute;
+    top: 302px;
+    right: 21px;
+}

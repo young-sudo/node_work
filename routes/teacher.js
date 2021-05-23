@@ -13,7 +13,7 @@ router.all('/', (req, res, next) => {
  router.get('/', function(req, res, next) {  
     connection.query('select * from v_student ',function (err, results, fields) {
       // 在user中添加一行数据
-       req.session.user.text =  req.session.user.name + '的全部学生';
+       req.session.user.title =  req.session.user.name + '的全部学生';
       // console.log(req.session.user)
        if(err != null){
           res.render('error',{text:err})
@@ -25,5 +25,17 @@ router.all('/', (req, res, next) => {
     }) 
      
  });
+
+ router.post('/exam', function (req, res, next) {
+   // console.log(req.body);
+   // console.log(req.body.type);
+   connection.query("select * from v_student where exam = ? ", [ req.body.type], function (err, results, fields) {
+      // console.log(results)
+      if (err != null) {
+         res.render("error", { text: err })
+      }
+      res.send(results);
+   })
+});
 
 module.exports = router;
