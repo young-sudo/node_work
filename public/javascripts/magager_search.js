@@ -15,6 +15,7 @@ $(document).ready(function () {
                     data: {
                         key: keys
                     },
+                    dataType: json ,
                     success: function (data) {
                         if (data == 'null') {
                             $('.table')[0].innerHTML = '<p style="text-align: center;color: red;font-size: 100px;line-height:489px">没有数据</p>'
@@ -22,8 +23,6 @@ $(document).ready(function () {
                                 window.location.href = '/magager'
                             }, 1000)
                         } else {
-                            console.log(data)
-                            console.log(typeof data)
                             arr = data;
                             update();
                             del();
