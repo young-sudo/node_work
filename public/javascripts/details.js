@@ -46,7 +46,7 @@ $(document).ready(function () {
             alert('请填写性别');
         } else if (sex != "男" && sex != "女") {
             alert("除了男或女，你想自己是哪种！！！");
-            $(this).val('');
+            $(this).val('男');
         } else {
         
         }
@@ -58,9 +58,35 @@ $(document).ready(function () {
             alert('请填写编号');
         } else if (age <0 || age >200) {
             alert("最多给你活到200岁");
-            $(this).val('');
+            $(this).val('18');
         } else {
           
+        }
+    }
+    //user
+    inp_user.onblur = function () {
+        var user = $(this).val(); 
+        if (user == '' || user == undefined || user == null) {
+            alert('请填写用户名');
+        } else if (user.indexOf(" ") >= 0) {
+            alert("用户名中不能有空格！！！");
+            $(this).val('');
+        } else if (user.length > 8 || user.length < 1) {
+            alert("用户名要在1到8位之间,当前有" + user.length + "位");
+        } else {
+          
+        }
+    }
+    //password
+    inp_password.onblur = function () {
+        var password = $(this).val();
+        if (password == '' || password == undefined || password == null) {
+            alert('请填写密码');
+        } else if (password.length<3 ||password.length >11) {
+            alert("密码只能在3-11位之间");
+            $(this).val('000');
+        } else {
+       
         }
     }
      //phonenumber
@@ -70,7 +96,7 @@ $(document).ready(function () {
             alert('请填写电话号码');
         } else if (phonenumber.length<3 ||phonenumber.length >11) {
             alert("电话号码只能在3-11位之间");
-            $(this).val('');
+            $(this).val('110');
         } else {
        
         }

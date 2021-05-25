@@ -9,17 +9,9 @@ router.get('/', function (req, res, next) {
       res.render('login');
 });
 
+//登录
 router.post('/', (req, res) => {
-      //从前台传过来的数据
-      // console.log(req.body.user, req.body.password);
-
-      //数据库
-      //1, console.log(mysql_results[0].islogout);
-      //2, let sql = 'SELECT count(id) FROM member where user =' + connection.escape('凯');
-      //3,
       connection.query('SELECT name,identity,islogout FROM member where user =? && password =? GROUP BY id', [req.body.user, req.body.password], function (err, results, fields) {
-            //   console.log(results[0]);   //1,没有：null ;  2,正确: RowDataPacket { sum: 1, identity: '学生', islogout: 'no' } 
-            //   console.log(results);        //[ RowDataPacket { sum: 1, identity: '游客', islogout: 'no' } ]
             if(err){
                   res.render('error', { text: 'watching' })
             }
@@ -32,6 +24,7 @@ router.post('/', (req, res) => {
                           //存入session
                           var use = new Use(results[0].name,req.body.user, req.body.password,results[0].identity);
                           req.session.user = use;
+                       
                         if (results[0].identity == "学生") {
                               res.redirect('/student');
                         } else if (results[0].identity == '老师') {

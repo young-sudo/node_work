@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
     var sql = "UPDATE member set number =?,name = ?,sex = ?,age =?,user =?,password =?,phonenumber =?,identity =? WHERE id = ?"
     connection.query(sql,[req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user, req.body.password, req.body.phonenumber, req.body.identity, req.body.id], function (err, results, fields) {
         if(err != null) {

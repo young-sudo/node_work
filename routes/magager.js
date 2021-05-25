@@ -6,9 +6,23 @@ var format = require('./bean/time');
 
 
 router.all('/', (req, res, next) => {
-    if (req.session.user != undefined && req.session.user != null && req.session.user.identity == '管理员') {
-        next();
-    } else {
+    if (req.session.user != undefined  && req.session.user.identity == '管理员') {
+        var sql ='select islogout from member where user = ?'
+        connection.query(sql,[req.session.user.user], function (err, results, fields) {
+            if(err != null){
+                console.log(err);
+                res.render("error",{text:err});
+            }else{
+                if(results[0].islogout == 'no'){
+                    next();
+                }else{
+                    res.render("error",{text:'该账号已注销!!!'})
+                }
+            }
+            
+        });
+      
+    }else {
         res.render('error', { text: 'Please login first' });
     }
 })
@@ -50,17 +64,21 @@ router.post('/magager', (req, res) => {
 
 router.post('/search', (req, res) => {
     var _inp = req.body.key;
+    console.log(_inp)
+    // var result ;
     connection.query('SELECT * FROM member where user like ?', ['%' + _inp + '%'], function (err, results, fields) {
         // console.log(err);
-        format(results);
+       format(results);
         // console.log(fields);
         if (results[0] == null) {
             res.send('null');
         } else {
             res.send(results);
         }
-
+// console.log(2,results)
+// result = results;
     })
+    // console.log(1,result)
 })
 
 router.post('/change', (req, res) => {

@@ -145,8 +145,8 @@ $(document).ready(function () {
             text.innerHTML = "请输入纯数字！！！";
         } else if (parseInt(password) != password) {
             text.innerHTML = "输入的数字中不能为小数！！！";
-        } else if (password.length > 11 || password.length < 4) {
-            text.innerHTML = "密码要在4到11位之间,当前有" + password.length + "位";
+        } else if (password.length > 11 || password.length < 3) {
+            text.innerHTML = "密码要在3到11位之间,当前有" + password.length + "位";
         } else {
             text.style.color = 'green';
             text.innerHTML = "success";

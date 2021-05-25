@@ -32,7 +32,11 @@ $(document).ready(function () {
             if (value_ == '账号详情') {
               window.location.href = '/details';
             } else if (value_ == '问题反馈') {  
-                alert(2)
+               if(_identity == 'student'){
+                   alert(1)
+               }else{
+                   alert(2)
+               }
             } else {
                 $.post("/" + _identity + "/exam",
                     {

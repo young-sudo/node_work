@@ -29,7 +29,7 @@ router.post('/', (req, res) => {
             connection.query(sql,
                 [user.number, user.name, user.sex, user.age, user.user, user.password, user.phonenumber, user.identity, user.create_time], function (err, results, fields) {
                     
-                    if (req.session.user != undefined && req.session.user != null) {
+                    if (req.session.user != undefined) {
                       // console.log(req.session.user)          //session
                         if( req.session.user.identity == '学生') {
                             var url ='/student';
