@@ -1,36 +1,153 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html class="no-js" lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>飘动的云</title>
-    <link rel="stylesheet" href="/stylesheets/index.css">
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="EPNWeb - Coming Soon Template">
+	<meta name="keywords"
+		content="Coming Soon Template, Creative , Creative Agency template, Creative, Agency, Parallax, parallax template, landing page, material design, Corporate, Coming Soon, Business">
+	<meta name="author" content="webpuls.org">
+
+	<title>my web</title>
+
+	<!-- favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="/images/favicon.ico">
+	<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
+	<!-- Bootstrap css -->
+	<link rel="stylesheet" href="/css/bootstrap.min.css">
+	<!-- Font-awesome Min css -->
+	<link rel="stylesheet" href="/css/font-awesome.min.css">
+	<!-- style css -->
+	<link rel="stylesheet" href="/css/style.css">
+	<!-- modernizr js -->
+	<script src="/js/modernizr-2.8.3.min.js"></script>
+	<!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
 </head>
 
 <body>
-    <h1 style="text-align: center;">欢迎来到我的网站</h1>
-    <h2 style="text-align: center; color: red;">&nbsp;<span id="show"></span></h2>
-    <div class="sky">
-        <div class="clouds_one"></div>
-        <div class="clouds_two"></div>
-        <div class="clouds_three"></div>
-    </div>
 
-    <div class="frame">
-        <span>正在载入...</span>
-        <div style=" border: 1px solid black;">
-            <div id="myProgress ">
-                <div id="myBar"></div>
-            </div>
-        </div>
-        <div class="fr_but" onclick="but_d()">
-            <button style="background-color: rgb(203, 203, 221);">cannel</button>
-        </div>
-    </div>
+	<div id="preloader">
+		<div id="global">
+			<div id="top" class="mask">
+				<div class="plane"></div>
+			</div>
+			<div id="middle" class="mask">
+				<div class="plane"></div>
+			</div>
+			<div id="bottom" class="mask">
+				<div class="plane"></div>
+			</div>
+			<p><i>LOADING...</i></p>
+		</div>
+	</div>
 
-    <script src="/javascripts/index.js"></script>
+	<div class="wrap main-bg table-div">
+		<div class="view-box d-cell">
+			<div class="container">
+				<div class="row">
+					<div class="col-xs-12 col-md-3 position">
+						<div class="logo">
+							<!-- <a href="#"><img src="/images/logo-1.png" alt="" /></a> -->
+						</div>
+						<div class="social-box-bot clearfix">
+							<ul>
+								<li><a href="#" data-toggle="tooltip" data-placement="top" title="Follow On Facebook"><i
+											class="fa fa-facebook"></i></a></li>
+								<li><a href="#" data-toggle="tooltip" data-placement="top" title="Follow On Twitter"><i
+											class="fa fa-twitter"></i></a></li>
+								<li><a href="#" data-toggle="tooltip" data-placement="top"
+										title="Follow On Google Plus"><i class="fa fa-google-plus"></i></a></li>
+								<li><a href="#" data-toggle="tooltip" data-placement="top"
+										title="Follow On Instagram"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="#" data-toggle="tooltip" data-placement="top" title="Follow On Youtube"><i
+											class="fa fa-youtube-play"></i></a></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-12 col-md-9">
+						<div class="main-content">
+							<div class="countdown main-time clearfix">
+								<div id="timer">
+									<div id="days"></div>
+									<div id="hours"></div>
+									<div id="minutes"></div>
+									<div id="seconds"></div>
+								</div>
+							</div>
+
+							<div class="md-headline clearfix">
+								<h1>This is my web</h1>
+								<p>Node.js is a development platform running on ChromeJavascript (commonly known as
+									GoogleV8 engine), which is used to create web applications on the server side
+									quickly and easily. You can think of it as a lightweight JSP or PHP environment, but
+									when it comes to developing Web applications, it's sometimes a lot easier. </p>
+							</div>
+
+							<div class="btn-box">
+								<a  class="btn notify-btn">login</a>
+							
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="scrollbar-right" class="right-box wh-bg">
+			<div class="close-icon">
+				<img src="/images/close.png" alt="Close" />
+			</div>
+			<div class="box-inner">
+				<div class="about-box">
+					<div class="about-title">
+						<h1>login</h1>
+					</div>
+					<div class="row about-content clearfix">
+						<div class="col-lg-4 pull-left">
+							<img src="/images/about-img.png" alt="" />
+						</div>
+						<div class="col-lg-8 rihgt-dit">
+							<h3>Since 2018</h3>
+							<a href="#">login</a>
+							<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor
+								incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+								exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+								dolor in reprehenderit in voluptate velit.</p>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="copyright">
+					<p class="footer-company-name">All Rights Reserved. &copy; 2018 Design By : <a href="/login" style="font-size: 30px;">login</a> | Distributed By: </p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+
+	<!-- All JS Here -->
+	<!-- jQuery Latest Version -->
+	<script src="/js/jquery.min.js"></script>
+	<!-- Popper min JS -->
+	<script src="/js/popper.min.js"></script>
+	<!-- Bootstrap JS -->
+	<script src="/js/bootstrap.min.js"></script>
+	<!-- Prognroll JS -->
+	<script src="/js/avoid.js"></script>
+	<!-- Prognroll JS -->
+	<script src="/js/prognroll.js"></script>
+	<!-- Form Validate -->
+	<script src="/js/jquery.validate.min.js"></script>
+	<!-- main JS -->
+	<script src="/js/main.js"></script>
+
 </body>
 
 </html>

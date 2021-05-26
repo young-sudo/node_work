@@ -1,0 +1,12 @@
+.big_div{
+    width: 1000px;
+    height: 670px;
+    background-color: green;
+    float: right;
+}
+.main_div{
+    width: 500px;
+    height: 600px;
+    position: absolute;
+    background-color: pink;
+}

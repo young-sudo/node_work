@@ -15,6 +15,7 @@ var deleteRouter =require('./routes/delete');
 var studentRouter =require('./routes/student');
 var teacherRouter =require('./routes/teacher');
 var detailsRouter =require('./routes/details');
+var forgetRouter =require('./routes/forget');
 
 var app = express();
 
@@ -35,6 +36,7 @@ app.use(session({
 }));
 
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'static')));
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
@@ -44,6 +46,7 @@ app.use('/delete',deleteRouter);
 app.use('/student',studentRouter);
 app.use('/teacher',teacherRouter);
 app.use('/details',detailsRouter);
+app.use('/forget',forgetRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
