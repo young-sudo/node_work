@@ -5,7 +5,7 @@ $(document).ready(function () {
     searchInp.oninput = function () {
         clearTimeout(timer);
         var keys = $(this).val();
-        console.log(keys)
+        // console.log(keys)
 
         if (keys != '') {
             timer = setTimeout(function () {
@@ -15,7 +15,6 @@ $(document).ready(function () {
                     data: {
                         key: keys
                     },
-                    dataType: json ,
                     success: function (data) {
                         if (data == 'null') {
                             $('.table')[0].innerHTML = '<p style="text-align: center;color: red;font-size: 100px;line-height:489px">没有数据</p>'

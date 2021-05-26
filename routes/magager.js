@@ -6,23 +6,23 @@ var format = require('./bean/time');
 
 
 router.all('/', (req, res, next) => {
-    if (req.session.user != undefined  && req.session.user.identity == '管理员') {
-        var sql ='select islogout from member where user = ?'
-        connection.query(sql,[req.session.user.user], function (err, results, fields) {
-            if(err != null){
+    if (req.session.user != undefined && req.session.user.identity == '管理员') {
+        var sql = 'select islogout from member where user = ?'
+        connection.query(sql, [req.session.user.user], function (err, results, fields) {
+            if (err != null) {
                 console.log(err);
-                res.render("error",{text:err});
-            }else{
-                if(results[0].islogout == 'no'){
+                res.render("error", { text: err });
+            } else {
+                if (results[0].islogout == 'no') {
                     next();
-                }else{
-                    res.render("error",{text:'该账号已注销!!!'})
+                } else {
+                    res.render("error", { text: '该账号已注销!!!' })
                 }
             }
-            
+
         });
-      
-    }else {
+
+    } else {
         res.render('error', { text: 'Please login first' });
     }
 })
@@ -63,22 +63,23 @@ router.post('/magager', (req, res) => {
 })
 
 router.post('/search', (req, res) => {
-    var _inp = req.body.key;
-    console.log(_inp)
-    // var result ;
-    connection.query('SELECT * FROM member where user like ?', ['%' + _inp + '%'], function (err, results, fields) {
+    var search_inp = req.body.key;
+
+    var sql = " SELECT * FROM member where user like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where name like " + connection.escape('%' + search_inp + '%')
+        + " UNION SELECT * from member where number like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where sex like " + connection.escape('%' + search_inp + '%')
+        + " UNION SELECT * from member where identity like " + connection.escape('%' + search_inp + '%')+ " UNION SELECT * from member where islogout like " + connection.escape('%' + search_inp + '%')
+        ;
+
+    connection.query(sql, function (err, rows) {
         // console.log(err);
-       format(results);
-        // console.log(fields);
-        if (results[0] == null) {
+        // console.log(rows)
+        format(rows);
+        if (rows[0] == null) {
             res.send('null');
         } else {
-            res.send(results);
+            res.send(rows);
         }
-// console.log(2,results)
-// result = results;
     })
-    // console.log(1,result)
 })
 
 router.post('/change', (req, res) => {
@@ -87,7 +88,7 @@ router.post('/change', (req, res) => {
     var c_user = req.body.user;
     connection.query('update member set  ' + c_index + ' = ? where user = ?', [c_value, c_user], function (err, results, fields) {
         if (err != null) {
-           res.send('error')
+            res.send('error')
         } else {
             res.send('success')
         }
