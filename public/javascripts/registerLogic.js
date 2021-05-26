@@ -51,3 +51,26 @@ function colorV() {
     color3 = $('#f3').css("background-color");
 
 }
+//
+$(document).ready(function () {
+    var a = $('input')[5];
+    a.type = 'password';
+    $('#see_div1').click(function () {
+        if (a.type == 'password') {
+            a.type = 'text';
+        }else{
+            a.type = 'password'
+        }
+
+    })
+    var b = $('input')[6];
+    b.type = 'password';
+    $('#see_div2').click(function () {
+        if (b.type == 'password') {
+            b.type = 'text';
+        }else{
+            b.type = 'password'
+        }
+
+    })
+})

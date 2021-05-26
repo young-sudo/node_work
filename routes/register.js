@@ -17,40 +17,29 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    //获取当前时间
+    //获取当前时间 并格式化
     var time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
-
     var user = new User(req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user,
         req.body.password, req.body.phonenumber, req.body.identity, time);
-    connection.query("select * from member where number=? || user =?", [req.body.number, req.body.user], function (err, results, fields) {
-        if (results[0] == null) {
-            var sql = "INSERT INTO member(number,name,sex,age,user,password,phonenumber,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
 
-            connection.query(sql,
-                [user.number, user.name, user.sex, user.age, user.user, user.password, user.phonenumber, user.identity, user.create_time], function (err, results, fields) {
-                    
-                    if (req.session.user != undefined) {
-                      // console.log(req.session.user)          //session
-                        if( req.session.user.identity == '学生') {
-                            var url ='/student';
-                        }else if( req.session.user.identity == '老师'){
-                            var url ='/teacher';
-                        }else{
-                            var url ='/magager';
-                        }
-                       res.redirect(url);
-                    } else {
-                        res.redirect('/login');
-                    }
-                   
-                });
-        } else {
-            res.send('number或user已存在,请重新填写');
-        }
+    var sql = "INSERT INTO member(number,name,sex,age,user,password,phonenumber,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
+    connection.query(sql,
+        [user.number, user.name, user.sex, user.age, user.user, user.password, user.phonenumber, user.identity, user.create_time], function (err, results, fields) {
+            if (req.session.user != undefined) {
+                // console.log(req.session.user)          //session
+                if (req.session.user.identity == '学生') {
+                    var url = '/student';
+                } else if (req.session.user.identity == '老师') {
+                    var url = '/teacher';
+                } else {
+                    var url = '/magager';
+                }
+                res.send(url);
+            } else {
+                res.send('/login');
+            }
 
-    });
-
-
+        });
 });
 
 router.post('/number', (req, res) => {

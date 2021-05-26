@@ -87,7 +87,7 @@ router.post('/change', (req, res) => {
     var c_user = req.body.user;
     connection.query('update member set  ' + c_index + ' = ? where user = ?', [c_value, c_user], function (err, results, fields) {
         if (err != null) {
-            res.send('error')
+           res.send('error')
         } else {
             res.send('success')
         }

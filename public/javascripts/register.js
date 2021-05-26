@@ -5,116 +5,223 @@ $(document).ready(function () {
         arrSpan[i].style.color = 'red';
         arrSpan[i].style.fontSize = '16px';
     }
-
-    // number  
-    $('input')[0].onblur = function () {
-        var num = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
-        text.style.color = 'red';
-        if (num == '' || num == undefined || num == null) {
-            text.innerHTML = '请填写标识码';
-
-        } else if (num.indexOf(" ") >= 0) {
-            text.innerHTML = "输入中有空格！！！";
-        } else if (isNaN(num)) {
-            text.innerHTML = "请输入纯数字！！！";
-        } else if (num.charAt(0) == 0) {
-            text.innerHTML = "首位不能为0！！！";
-        } else if (parseInt(num) != num) {
-            text.innerHTML = "输入的数字中不能为小数！！！";
-        } else if (num < 100 || num > 999999999) {
-            text.innerHTML = "输入的数字必须在3位以上、10位以内";
-        } else {
+    //提交按钮
+    var btn = $('#btn_submit');
+    btn.click(function () {
+        if (check_number && check_name && check_sex && check_age && check_user && check_password && check_repassword && check_phonenumber) {
             $.ajax({
                 type: 'post',
-                url: '/register/number',
+                url: '/register',
                 data: {
-                    key: num
+                    number: inp_number.value,
+                    name: inp_name.value,
+                    sex: inp_sex.value,
+                    age: inp_age.value,
+                    user: inp_user.value,
+                    password: inp_password.value,
+                    phonenumber: inp_phonenumber.value,
+                    identity: identity
                 },
                 success: function (data) {
-                    text.innerHTML = data;
-                    if (data == 'success') {
-                        text.style.color = 'green';
-                    }
-
+                 if(data == 'err'){
+                     alert('error')
+                 }else{
+                     window.location.href= data
+                 }
                 }
             })
-        }
 
+        }else{
+            if(!check_number){
+                alert('请检查你的number')
+            }
+            if(!check_name){
+                alert('请检查你的name')
+            }
+            if(!check_sex){
+                alert('请检查你的sex')
+            }
+            if(!check_age){
+                alert('请检查你的age')
+            }
+            if(!check_user){
+                alert('请检查你的user')
+            }
+            if(!check_password){
+                alert('请检查你的password')
+            }
+            if(!check_repassword){
+                alert('密码不匹配')
+            }
+            if(!check_phonenumber){
+                alert('请检查你的phonenumber')
+            }
+        }
+    })
+    //input
+    var inp_number = $('input')[0];
+    var inp_name = $('input')[1];
+    var inp_sex = $('input')[2];
+    var inp_age = $('input')[3];
+    var inp_user = $('input')[4];
+    var inp_password = $('input')[5];
+    var inp_repassword = $('input')[6];
+    var inp_phonenumber = $('input')[7];
+    var identity = $('.identity')[0].value;
+    // console.log(identity)
+
+    var check_number = false;
+    var check_name = false;
+    var check_sex = false;
+    var check_age = false;
+    var check_user = false;
+    var check_password = false;
+    var check_repassword = false;
+    var check_phonenumber = false;
+
+
+    //number
+    inp_number.onblur = function () {
+        check_number = number(this);
     }
     //name
-    $('input')[1].onblur = function () {
-        var name = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
-        text.style.color = 'red';
-        if (name == '' || name == undefined || name == null) {
-            text.innerHTML = '请填写你的名字'
-        } else {
-            $.ajax({
-                type: 'post',
-                url: '/register/name',
-                data: {
-                    key: name
-                },
-                success: function (data) {
-                    text.innerHTML = data;
-                    if (data == 'success') {
-                        text.style.color = 'green';
-                    } else {
-                        text.style.color = 'yellow';
-                    }
-
-                }
-            })
-        }
-
+    inp_name.onblur = function () {
+        //name 为关键字，用uname
+        check_name = uname(this);
     }
-
     //sex
-    $('input')[2].onblur = function () {
-        var sex = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
-        text.style.color = 'red';
-        if (sex == '男' || sex == '女') {
-            text.innerHTML = 'success,' + '你的性别是' + sex;
-            text.style.color = 'green'
-        } else if (sex == '' || sex == undefined || sex == null) {
-            text.innerHTML = '请填写性别';
-        } else {
-            text.innerHTML = '性别只能是男或女，除非是你想...'
-        }
-
-
+    inp_sex.onblur = function () {
+        check_sex = sex(this);
     }
-    //age
-    $('input')[3].onblur = function () {
-        var age = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
-        text.style.color = 'red';
-        if (age == '' || age == undefined || age == null) {
-            text.innerHTML = '请填写年龄';
-        } else if (age.indexOf(" ") >= 0) {
-            text.innerHTML = "输入中有空格！！！";
-        } else if (isNaN(age)) {
-            text.innerHTML = "请输入纯数字！！！";
-        } else if (age.charAt(0) == 0) {
-            text.innerHTML = "首位不能为0！！！";
-        } else if (parseInt(age) != age) {
-            text.innerHTML = "输入的数字中不能为小数！！！";
-        } else if (age < 0 || age > 200) {
-            text.innerHTML = "别想了，最多给你活200岁";
-        } else {
-            text.style.color = 'green';
-            text.innerHTML = "年龄输入正确，你现在 " + age + '岁';
-
-        }
+    //number
+    inp_age.onblur = function () {
+        check_age = age(this);
     }
 
     //user
-    $('input')[4].onblur = function () {
-        var user = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
+    inp_user.onblur = function () {
+        check_user = user(this);
+    }
+    //password
+    inp_password.onblur = function () {
+        check_password = password(this);
+    }
+    //repassword
+    inp_repassword.onblur = function () {
+        check_repassword = repassword(this, inp_password);
+    }
+    //phonenumber
+    inp_phonenumber.onblur = function () {
+        check_phonenumber = phonenumber(this);
+    }
+})
+//////////////////////////////////////////
+
+function number(i) {
+    var number = i.value;
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    if (!/^\d{5,10}$/.test(number)) {
+        flag = false;
         text.style.color = 'red';
+        text.innerHTML = '不能去为空，只能为数字且长度为5-10位';
+    }else{
+        $.ajax({
+            type: 'post',
+            url: '/register/number',
+            data: {
+                key: number
+            },
+            success: function (data) {
+                if(data != 'success'){
+                    text.innerHTML = data;
+                    text.style.color = 'red';
+                }
+            }
+        })
+    }
+     return flag;
+}
+
+
+function uname(i) {
+    var uname = i.value;
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    if (uname.length < 1 || uname.length > 6) {
+        flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '不能去为空，长度为1-6位';
+    }else{
+        $.ajax({
+            type: 'post',
+            url: '/register/name',
+            data: {
+                key: uname
+            },
+            success: function (data) {
+                if (data != 'success') {
+                    text.style.color = 'yellow';
+                    text.innerHTML = data;
+                }
+
+            }
+        })
+    }
+    return flag;
+}
+function sex(i) {
+    var sex = i.value;
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    if (sex != '男' && sex != '女') {
+        flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '不能去为空，你想你性别还能是啥？';
+    }
+    return flag;
+}
+function age(i) {
+    var age = i.value;
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    if(age == ''){
+        flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '不能去为空';
+    }else if (!/^[0-9]*$/.test(age)) {
+        flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '只能为数字';
+    }else{
+        if (age < 0 || age > 100) {
+            flag = false;
+            text.style.color = 'red';
+            text.innerHTML = '活到100!';
+        }
+    }
+    return flag;
+}
+function user(i) {
+    var user = i.value;       //输入的password
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    var re = /^[a-zA-z]\w{3,15}$/;
+    if (!re.test(user)) {
+        flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '由字母开头，字母、数字、下划线组成,4-16位';
+    }else{
         $.ajax({
             type: 'post',
             url: '/register/user',
@@ -122,76 +229,69 @@ $(document).ready(function () {
                 key: user
             },
             success: function (data) {
-                text.innerHTML = data;
-                if (data == 'success') {
-                    text.style.color = 'green';
+               if (data != 'success') {
+                    text.style.color = 'red';
+                    text.innerHTML = data;
                 }
             }
         })
     }
-
-    //password
-    $('input')[5].type = 'password'    //修改password列的type
-    $('input')[5].onblur = function () {
-        var password = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
-        text.style.color = 'red';
-        if (password == '' || password == undefined || password == null) {
-            text.innerHTML = '请填写密码';
-
-        } else if (password.indexOf(" ") >= 0) {
-            text.innerHTML = "密码中不能有空格！！！";
-        } else if (isNaN(password)) {
-            text.innerHTML = "请输入纯数字！！！";
-        } else if (parseInt(password) != password) {
-            text.innerHTML = "输入的数字中不能为小数！！！";
-        } else if (password.length > 11 || password.length < 3) {
-            text.innerHTML = "密码要在3到11位之间,当前有" + password.length + "位";
-        } else {
-            text.style.color = 'green';
-            text.innerHTML = "success";
-
-        }
-    }
-
-
-    //phonenumber
-    $('input')[6].onblur = function () {
-        var phonenumber = $(this).val();
-        var text = this.parentNode.parentNode.children[2];
-        text.style.color = 'red';
-        if (phonenumber == '' || phonenumber == undefined || phonenumber == null) {
-            text.innerHTML = '请填写号码';
-
-        } else if (phonenumber.indexOf(" ") >= 0) {
-            text.innerHTML = "输入中有空格！！！";
-        } else if (isNaN(phonenumber)) {
-            text.innerHTML = "请输入纯数字！！！";
-        } else if (parseInt(phonenumber) != phonenumber) {
-            text.innerHTML = "输入的数字中不能为小数！！！";
-        } else if (phonenumber.length != 11) {
-            text.innerHTML = "电话号码为11位,当前有" + phonenumber.length + "位";
-        } else {
-            text.style.color = 'green';
-            text.innerHTML = "success";
-
-        }
-    }
-
-})
-function check() {
-    var r = confirm("确认提交？");
-    if (r == true) {
-       return true;
-    } else {
-     return false;
-    }
+    return flag;
 }
 
+function password(i) {
+    var password = i.value;       //输入的password
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    // 是判断最后的校验结果
+    // 先校验长度，设置区域为6-10位
+    if (password.length < 6 || password.length > 10) {
+        // 如果校验没有通过抛出提示
+        text.style.color = 'red';
+        text.innerHTML = '不能去为空,且密码只能为6-10位';
+        flag = false;
+    }
+    // 判断密码的合法性，只允许输入数字，字母和部分符号
+    if (/[^0-9a-zA-Z\`\!\@\#\$\%\^\&\*\(\)\_\+\{\}\,\.\/\"\:\;]/g.test(password)) {
+        flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '密码不能输入汉字';
+    }
+    return flag;
+}
 
-
-
-
-
-
-
+function repassword(i, inp_password) {
+    var repassword = i.value;
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    //与password比较
+    if (repassword != '' && repassword == inp_password.value) {
+        text.innerHTML = 'success';
+    } else if (repassword == '') {
+        var flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '请输入密码';
+    } else {
+        var flag = false;
+        text.style.color = 'red';
+        text.innerHTML = '密码不相同，请重新输入';
+    }
+    return flag;
+}
+function phonenumber(i) {
+    var phonenum = i.value;
+    var text = i.parentNode.parentNode.children[2];
+    text.style.color = 'green';
+    text.innerHTML = 'success';
+    var flag = true;
+    if (! /^[1][3,4,5,7,8][0-9]{9}$/.test(phonenum)) {
+        text.style.color = 'red';
+        text.innerHTML = '以1为开头,第二位可为3,4,5,7,8;11位，当前为' + phonenum.length + '位';
+        flag = false;
+    }
+    return flag;
+}

@@ -5,7 +5,6 @@ body{
 #main_div{
     width: 600px;
     position: relative;
-
     left: 30%;
 }
 
@@ -46,7 +45,7 @@ form div{
     margin: 10px;
     height: 60px;
     font-size: 20px;
-    color: blue;
+    color: rgb(0, 89, 255);
 }
 input{
     width: 400px;
@@ -87,4 +86,35 @@ input:hover{
     position: absolute;
     top: 274px;
     left: 150px;
+}
+.main_input{
+    position: absolute;
+    top: 28px;
+    left: 150px;
+}
+.word_input{
+    width: 150px;
+    text-align: center;
+}
+#see_div1{
+    color: white;
+    width: 40px;
+    height: 30px;
+    background-color: gray;
+    position: absolute;
+    top: 400px;
+    right: 23px;
+    border: 1px solid black;
+    border-radius: 9px;
+}
+#see_div2{
+    color: white;
+    width: 40px;
+    height: 30px;
+    background-color: gray;
+    position: absolute;
+    top: 472px;
+    right: 23px;
+    border: 1px solid black;
+    border-radius: 9px;
 }

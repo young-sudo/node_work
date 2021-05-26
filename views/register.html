@@ -8,45 +8,55 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="/stylesheets/register.css">
     <script src="/javascripts/jquery.min.js"></script>
-    <script src="/javascripts/register.js"></script>
     <script src="/javascripts/registerLogic.js"></script>
+    <script src="/javascripts/register.js"></script>
+
 </head>
 
 <body>
     <div id="float_div">
         <div id="f1"></div>
-       <label>
-        <div id="f2">
-            <h4 style="text-align: center; line-height: 80px;">学生</h4>
-            <div class="f2_fr"></div>
-        </div>
-        
-       </label>
+        <label>
+            <div id="f2">
+                <h4 style="text-align: center; line-height: 80px;">学生</h4>
+                <div class="f2_fr"></div>
+            </div>
+
+        </label>
         <div id="f3">
             <h4 style="text-align: center; line-height: 80px;">老师</h4>
             <div class="f3_fr"></div>
         </div>
     </div>
     <div id="main_div">
-        <h2 style="text-align: center;color: white;">注册</h2>
-        <form action="/register" method="POST"  onsubmit="return check(this)">
+        <h2 style="text-align: center;color: white;">register</h2>
+        <form action="/register" method="POST">
             <% key.forEach ((o,i)=>{ %>
-                <div class="main_input" ind="<%= i %>">
-                    <label>
-                        <%=o.inp %>:<input type="text" name="<%=o.inp %>" ind="<%= i %>" placeholder="<%=o.inp %>">
-                    </label>
-                    <br>
-                    <span></span>
+                <div class="word_input" ind="<%= i %>">
+                    <%= o.inp %>
                 </div>
-            <% }) %>
-                <input type="hidden" name="identity" value="" class="identity">
-              
+                <% }) %>
+                    <div class="main_input">
+                        <% key.forEach ((o,i)=>{ %>
+                            <div ind="<%= i %>">
+                                <label>
+                                    <input type="text" name="<%=o.inp %>" ind="<%= i %>" placeholder="<%=o.inp %>">
+                                </label>
+                                <br>
+                                <span></span>
+                            </div>
+                            <% }) %>
+                    </div>
+                    <input type="hidden" name="identity" value="" class="identity">
+
                     <div style="text-align: center;">
                         <input type="reset" class="outinp">
-                        <input type="submit" class="outinp">
+                        <input type="button" class="outinp" value="提交" id="btn_submit">
                     </div>
-                   
+
         </form>
+        <button id="see_div1">see</button>
+        <button id="see_div2">see</button>
     </div>
 </body>
 
