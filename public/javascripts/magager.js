@@ -145,6 +145,7 @@ function change() {
             // var td = list[j].innerHTML;//获取具体单元格    string
             // console.log(td)
             var td_input = list[j].children[0]
+            // console.log(td_input)      //获取具体单元格    odject  
             td_input.onchange = function () {
                 // console.log(this)             //选中的input
                 // console.log(this.value)                //改变后的值

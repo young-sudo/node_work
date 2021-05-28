@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="gb2312">
+
+<head>
+    <meta charset="gb2312">
+    <title>forget</title>
+    <link rel="stylesheet" type="text/css" href="/stylesheets/forget.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/forget2.js"></script>
+
+</head>
+
+<body>
+    <div class="box" style="text-align: left;margin:0px auto; float: left;">
+        <canvas id="clock" width="300" height="300"></canvas>
+    </div>
+    <div class="big_div">
+        <div class="main_div">
+            <h2 style="text-align: center;">forget password</h2>
+            <div style="text-align: center;">
+                &nbsp;&nbsp;0<div class="hengxiang"></div>
+                <div>1 填写帐号</div>
+                <div class="hengxiang" id="hx_div1"></div>
+                <div>2 身份验证</div>
+                <div class="hengxiang" id="hx_div2"></div>
+                <div>3 设置新密码</div>
+                <div class="hengxiang" id="hx_div3"></div>
+                <div>4 完成</div>
+            </div>
+        </div>
+        <div class="gongneng">
+            <h2 style="text-align: center;">确认身份</h2>
+            <table class="table">
+                <tr>
+                    <td>电话号码:<input type="text" class="inp_phone"></td>
+                </tr>
+                <tr>
+                    <td>验证码:<input type="text" id="inp_pass"></td>
+                    <td> <input type="button" id="but_pass" value="获取验证码"></td>
+                </tr>
+                <tr>
+                    <td> <input type="button" id="but_before" value="<" style="position: absolute;top: 0px;left: 0px;"></td>
+                    <td>
+                        <p id="p_pass">&nbsp;</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <input type="button" id="but_sub" value="确认"></td>
+                    <td> <input type="button" id="but_next" value="下一步 >" style="display: none;"></td>
+                </tr>
+            </table>
+            <span id="span" style="color: red; position: absolute;top: 74px;left: 260px;"></span>
+        </div>
+ </div>
+
+
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/clock-canvas.min.js"></script>
+    <script>
+        $(function () {
+            $("#clock").drawClock();
+            //��������ΪĬ��ֵ����Ҫʱ�ɴ�6��������ʱ����ɫ,������ɫ,������ɫ,�������ڵĵ���ɫ,���������ڵĵ���ɫ,����Ȧ��ɫ
+        })
+    </script>
+</body>
+
+</html>

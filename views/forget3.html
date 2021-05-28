@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/forget3.css">
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/forget3.js"></script>
+</head>
+<body>
+    <div class="main_div">
+        <br>
+        <h2 style="text-align: center;">forget password</h2>
+        <div style="text-align: center;">
+            &nbsp;&nbsp;0<div class="hengxiang"></div>
+            <div>1 填写帐号</div>
+            <div class="hengxiang" id="hx_div1"></div>
+            <div>2 身份验证</div>
+            <div class="hengxiang" id="hx_div2"></div>
+            <div>3 设置新密码</div>
+            <div class="hengxiang" id="hx_div3"></div>
+            <div>4 完成</div>
+        </div>
+    </div>
+    <div class="new_pass">
+        <h2 style="text-align: center;">设置新密码</h2>
+        <table class="table">
+            <tr>
+                <td>输入新密码:<input type="text" id="new_pass" placeholder="输入新密码" oninput="value=value.replace(/[^\d]/g,'')"/></td>
+            </tr>
+            <tr>
+                <td>确认新密码:<input type="text" id="re_pass" placeholder="输入新密码" oninput="value=value.replace(/[^\d]/g,'')"/></td>
+            </tr>
+            <tr><td><span id="s_span">&nbsp;</span></td></tr>
+            <tr>
+                <td><input type="button" id="but_sub" value="确认"></td>
+                <td><input type="button" id="but_before" value="上一步"></td>
+                <td><input type="button" id="but_next" value="下一步" style="display: none;"></td>
+            </tr>
+           
+        </table>
+    </div>
+</body>
+</html>

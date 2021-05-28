@@ -103,5 +103,5 @@ router.get('/islogout', (req, res) => {
         res.render('error', { text: "注销账号成功，请重新登陆" });
     })
 })
-
+// req.session.destroy();
 module.exports = router;

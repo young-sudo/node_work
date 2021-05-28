@@ -1,0 +1,31 @@
+body{
+    margin: 0;
+}
+.main_div{
+    width: 400px;
+    height: 600px;
+    background-color: #ffe5c0;
+    position: relative;
+    left: 400px;
+
+}
+.hengxiang{
+    width: 9px;
+    height: 60px;
+    background-color: green;
+    position: relative;
+    left: 200px;
+}
+#hx_div3{
+    background-color: gray;
+}
+
+.new_pass{
+    width: 500px;
+    height: 600px;
+    background-color: yellowgreen;
+    position: absolute;
+    left: 801px;
+    top: 0px;
+}
+   

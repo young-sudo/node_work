@@ -1,12 +1,30 @@
 .big_div{
-    width: 1000px;
+    width: 1100px;
     height: 670px;
-    background-color: green;
+    /* background-color: green; */
     float: right;
 }
 .main_div{
-    width: 500px;
+    width: 400px;
     height: 600px;
     position: absolute;
-    background-color: pink;
+    background-color: #ffe5c0;
+}
+.hengxiang{
+    width: 9px;
+    height: 60px;
+    background-color: green;
+    position: relative;
+    left: 200px;
+}
+.gongneng{
+    width: 400px;
+    height: 600px;
+    position: absolute;
+    left: 835px;
+    background-color: greenyellow;
+   
+}
+#hx_div1,#hx_div2,#hx_div3{
+ background-color: gray;
 }
