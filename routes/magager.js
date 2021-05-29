@@ -87,6 +87,8 @@ router.post('/change', (req, res) => {
     var c_index = req.body.index;
     var c_user = req.body.user;
     connection.query('update member set  ' + c_index + ' = ? where user = ?', [c_value, c_user], function (err, results, fields) {
+        console.log(err)
+        console.log(results)
         if (err != null) {
             res.send('error')
         } else {
@@ -103,5 +105,12 @@ router.get('/islogout', (req, res) => {
         res.render('error', { text: "注销账号成功，请重新登陆" });
     })
 })
-// req.session.destroy();
+
+router.get('/logout', function(req,res){
+  // 消除sesssion
+  console.log(req.session.user);
+     req.session.destroy();
+     console.log(req.session);
+     res.send('/login');
+})
 module.exports = router;

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/stylesheets/bootstrap.min.css" type="text/css">
+    <script src="/javascripts/jquery.min.js"></script>
+    <script src="/javascripts/grade.js"></script>
+    <style>
+        #big_div{
+            position: relative;
+            left: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div id="big_div" style="width: 300px;height: 300px;">
+       <form>
+        <table class="table ">
+            <tbody>
+                <tr>
+                    <td>学生姓名:
+                        <input type="text" placeholder="name" /></td>
+                </tr>
+                <tr>
+                    <td>学生编号:
+                        <input type="number" placeholder="number"/></td>
+                </tr>
+                <tr>
+                    <td>学生性别:
+                        <input type="text" list="sex_a" placeholder="sex" />
+                        <datalist id="sex_a">
+                            <option>男</option>
+                            <option>女</option>
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>学生成绩:
+                        <input type="number" placeholder="score" /></td>
+                </tr>
+                <tr>
+                    <td>考试类型:
+                        <input type="text" placeholder="exam" list="exam_a">
+                        <datalist id="exam_a">
+                            <option>周考</option>
+                            <option>月考</option>
+                            <option>期中考</option>
+                            <option>期末考</option>
+                            <option>联考</option>
+                        </datalist>
+                    </td>
+                </tr>
+                <tr>
+                    <td>考试科目:
+                        <input type="text" placeholder="type" list="exam_b">
+                        <datalist id="exam_b">
+                            <option>语文</option>
+                            <option>数学</option>
+                            <option>英语</option>
+                            <option>物理</option>
+                            <option>化学</option>
+                            <option>生物</option>
+                            <option>政治</option>
+                            <option>历史</option>
+                            <option>地理</option>
+                            <option>科学</option>
+                        </datalist>
+                    </td>
+                </tr>
+              
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td>
+                        <input type="reset" value="重置"/>
+                        <input type="button" id="but_sub" value="提交"/>
+                    </td>
+                </tr>
+            </tfoot>
+           
+        </table>
+       </form>
+       </div>
+</body>
+</html>

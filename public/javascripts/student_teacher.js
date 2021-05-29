@@ -27,7 +27,7 @@ $(document).ready(function () {
     })
     $('.left_type').each(function () {
         $(this).click(function () {
-         //   console.log($(this)[0].childNodes[0].data)
+           console.log($(this)[0].childNodes[0].data)
             var value_ = $(this)[0].childNodes[0].data;
             if (value_ == '账号详情') {
               window.location.href = '/details';
@@ -50,6 +50,9 @@ $(document).ready(function () {
                     });
             }
         })
+    })
+    $('.addgrade_but').click(function(){
+       window.open('/teacher/grade','newwindow','scrollbars=no,toolbar=no,resizable=no,status=no,width=500,height=500')
     })
 })
 
@@ -75,7 +78,9 @@ function login() {
 function logout() {
     var r = confirm("确认退出登陆？");
     if (r == true) {
-        window.location.href = '/login';
+        $.get('/magager/logout',function(data){
+            window.location.href = data;
+        });
         return true;
     } else {
         return false;

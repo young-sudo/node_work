@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser('text'));
 app.use(session({
   secret: "text",
-  cookie: { maxAge: 600000 },
+  cookie: { maxAge: 6000000 },
   resave: false,
   saveUninitialized: true
 }));
@@ -55,7 +55,8 @@ app.use(function (req, res, next) {
 
 // error handler
 app.use(function (err, req, res, next) {
-  console.log(err)
+  console.log(err);
+  res.status(404).send('Sorry cant find that');
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};

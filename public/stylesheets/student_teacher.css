@@ -61,7 +61,7 @@
 }
 .right_div{
     width: 80%;
-    height: 720px;
+    height: 753px;
     color:white;
     /* background-color: lime; */
     position: absolute;
@@ -105,3 +105,14 @@
     display: none;
 }
 
+.set_teacher_div{
+    width: 150px;
+    height: 180px;
+    background-color: white;
+    position: relative;
+    left: 305px;
+    top: 500px;
+}
+.set_teacher_div table tr{
+    height: 40px;
+}
