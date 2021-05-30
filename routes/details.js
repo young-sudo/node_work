@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var connection = require('./bean/mysql');
 var format = require('./bean/time');
+var md5 = require('./bean/md5');
 
 router.all('/', (req, res, next) => {
     if (req.session.user != undefined && req.session.user != null) {
@@ -25,8 +26,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     // console.log(req.body)
+    var password =  md5( req.body.password);
     var sql = "UPDATE member set number =?,name = ?,sex = ?,age =?,user =?,password =?,phonenumber =?,identity =? WHERE id = ?"
-    connection.query(sql,[req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user, req.body.password, req.body.phonenumber, req.body.identity, req.body.id], function (err, results, fields) {
+    connection.query(sql,[req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user, password, req.body.phonenumber, req.body.identity, req.body.id], function (err, results, fields) {
         if(err != null) {
             res.render('error',{text:err})
         }else{

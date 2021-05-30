@@ -36,7 +36,6 @@ function makeDate(date) {
 }
 
 function format(time){
-   
     for (var i = 0; i < time.length; i++) {
         if (time[i].logout_time != null) {
             time[i].create_time = makeDate(time[i].create_time);

@@ -3,7 +3,8 @@ var router = express.Router();
 var sd = require('silly-datetime');
 var connection = require('./bean/mysql');
 var format = require('./bean/time');
-
+var md5 = require('./bean/md5');
+//  console.log(md5('123456'))
 
 router.all('/', (req, res, next) => {
     if (req.session.user != undefined && req.session.user.identity == '管理员') {
@@ -108,5 +109,11 @@ router.get('/logout', function(req,res){
   // 消除sesssion
      req.session.destroy();
      res.send('/login');
+})
+
+router.post('/password',(req,res) =>{
+    // console.log(req.body);       //[Object: null prototype] { data: '111' }
+    // console.log(req.body.data);
+    res.send( md5(req.body.data))
 })
 module.exports = router;

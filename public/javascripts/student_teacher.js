@@ -33,14 +33,18 @@ $(document).ready(function () {
                 window.location.href = '/details';
             } else if (value_ == '问题反馈') {
                 if (_identity == 'student') {
-                    alert(1)
-                } else {
-                    var but_s =$("#set_teacher_div")[0].style;
-                    console.log(but_s);
-                    if(but_s.display == 'block'){
-                        but_s.display = 'none'
+                    var but_s_s =$("#set_student_div")[0].style;
+                    if(but_s_s.display == 'block'){
+                        but_s_s.display = 'none'
                     }else{
-                        but_s.display = 'block'
+                        but_s_s.display = 'block'
+                    }
+                } else {
+                    var but_s_t =$("#set_teacher_div")[0].style;
+                    if(but_s_t.display == 'block'){
+                        but_s_t.display = 'none'
+                    }else{
+                        but_s_t.display = 'block'
                     }
                 }
             } else {

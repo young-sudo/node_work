@@ -120,9 +120,9 @@ function del() {
 function display() {
     //必须先判断display = block，应为开始时它没有display属性
     if ($(".gongneng")[0].style.display == 'block') {
-       $(".gongneng")[0].style.display = 'none';
+        $(".gongneng")[0].style.display = 'none';
     } else {
-       $(".gongneng")[0].style.display = 'block';
+        $(".gongneng")[0].style.display = 'block';
     }
 }
 function but_return() {
@@ -134,7 +134,7 @@ function details() {
 }
 //修改页面的内容并同步到mysql
 function change() {
-    var table =$('.showData')[0];
+    var table = $('.showData')[0];
     var rows = table.rows;//获取所有行
     // console.log("lenth", rows.length)
 
@@ -161,7 +161,7 @@ function change() {
                         }
                     }
                 }
-              var  c_index = _index();
+                var c_index = _index();
                 if (c_index == 0) {
                     c_index = 'id';
                 } else if (c_index == 1) {
@@ -187,8 +187,8 @@ function change() {
                 } else {
                     c_index = 'logout_time';
                 }
-               var c_value = this.value;
-              var  c_user = this.parentNode.parentNode.children[5].children[0].attributes[1].value;
+                var c_value = this.value;
+                var c_user = this.parentNode.parentNode.children[5].children[0].attributes[1].value;
 
                 $.ajax({
                     type: 'post',
@@ -215,3 +215,14 @@ function change() {
     }
 
 }
+$(document).ready(function () {
+    $(".flip").click(function () {
+        $(".panel").slideToggle("slow");
+    });
+    //md5转换
+    $('#before_pass').blur(function () {
+        $.post('/magager/password', { data: $(this).val() }, (data) => {
+            $("#after_pass").val(data)
+        })
+    })
+});

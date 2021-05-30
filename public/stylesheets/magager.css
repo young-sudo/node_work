@@ -89,3 +89,24 @@ input{
     top: -70px;
     left: 0px;
 }
+
+div.panel,p.flip{
+    width: 200px;
+    margin:0px;
+    padding:5px;
+    background:white;
+    border:solid 1px black;
+}
+div.panel{
+    background-color: greenyellow;
+}
+div.panel{
+    width: 200px;
+    height:100px;
+    display:none;
+}
+.xialankuang{
+    position: absolute;
+    top: 0px;
+    left: 300px;
+}

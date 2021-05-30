@@ -117,3 +117,12 @@
 .set_teacher_div table tr{
     height: 40px;
 }
+.set_student_div{
+    width: 150px;
+    height: 180px;
+    background-color: white;
+    position: relative;
+    left: 307px;
+    top: 500px;
+    display: none;
+}

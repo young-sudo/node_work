@@ -5,6 +5,7 @@ var path = require('path');
 var connection = require('./bean/mysql');
 var sd = require('silly-datetime');
 var User = require('./bean/user');
+var md5 = require('./bean/md5');
 
 fs.readFile(path.join(__dirname, 'bean/input.json'), { encoding: 'utf-8' }, function (err, d) {
     inputVal = JSON.parse(d);
@@ -21,7 +22,8 @@ router.post('/', (req, res) => {
     var time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
     var user = new User(req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user,
         req.body.password, req.body.phonenumber, req.body.identity, time);
-
+    //md5加密密码
+    user.password = md5(user.password);
     var sql = "INSERT INTO member(number,name,sex,age,user,password,phonenumber,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
     connection.query(sql,
         [user.number, user.name, user.sex, user.age, user.user, user.password, user.phonenumber, user.identity, user.create_time], function (err, results, fields) {

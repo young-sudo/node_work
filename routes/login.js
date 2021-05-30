@@ -3,6 +3,7 @@ var router = express.Router();
 var connection = require('./bean/mysql');
 var Use = require('./bean/session_login');
 var session = require('express-session');
+var md5=require('./bean/md5');
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
@@ -11,7 +12,8 @@ router.get('/', function (req, res, next) {
 
 //登录
 router.post('/', (req, res) => {
-      connection.query('SELECT name,identity,islogout FROM member where user =? && password =? GROUP BY id', [req.body.user, req.body.password], function (err, results, fields) {
+      var password = md5(req.body.password);
+      connection.query('SELECT name,identity,islogout FROM member where user =? && password =? GROUP BY id', [req.body.user, password], function (err, results, fields) {
             if(err){
                   res.render('error', { text: 'watching' })
             }
@@ -22,7 +24,7 @@ router.post('/', (req, res) => {
                         res.render("error", { text: '该用户已注销' })
                   } else {
                           //存入session
-                          var use = new Use(results[0].name,req.body.user, req.body.password,results[0].identity);
+                          var use = new Use(results[0].name,req.body.user,password,results[0].identity);
                           req.session.user = use;
                        
                         if (results[0].identity == "学生") {

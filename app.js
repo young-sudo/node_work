@@ -45,8 +45,11 @@ app.use('/magager',magagerRouter);
 app.use('/delete',deleteRouter);
 app.use('/student',studentRouter);
 app.use('/teacher',teacherRouter);
+// 详情
 app.use('/details',detailsRouter);
+// 忘记密码
 app.use('/forget',forgetRouter);
+// 成绩
 app.use('/grade',gradeRouter);
 
 module.exports = app;
