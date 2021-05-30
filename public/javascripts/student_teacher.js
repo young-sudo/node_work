@@ -27,7 +27,7 @@ $(document).ready(function () {
     })
     $('.left_type').each(function () {
         $(this).click(function () {
-            console.log($(this)[0].childNodes[0].data)
+            // console.log($(this)[0].childNodes[0].data)
             var value_ = $(this)[0].childNodes[0].data;
             if (value_ == '账号详情') {
                 window.location.href = '/details';
@@ -35,7 +35,13 @@ $(document).ready(function () {
                 if (_identity == 'student') {
                     alert(1)
                 } else {
-                    alert(2)
+                    var but_s =$("#set_teacher_div")[0].style;
+                    console.log(but_s);
+                    if(but_s.display == 'block'){
+                        but_s.display = 'none'
+                    }else{
+                        but_s.display = 'block'
+                    }
                 }
             } else {
                 $.post("/" + _identity + "/exam",
@@ -51,7 +57,7 @@ $(document).ready(function () {
             }
         })
     })
-    $('.addgrade_but').click(function () {
+    $('#addgrade_but').click(function () {
         //    window.open('/grade','newwindow','scrollbars=no,toolbar=no,resizable=no,status=no,width=500,height=500')
         $.ajax({
             type: 'get',
@@ -60,6 +66,9 @@ $(document).ready(function () {
                 window.location.href = '/grade';
             }
         })
+    })
+    $('#change_grade_but').click(function(){
+        window.location.href = '/grade/change_grade';
     })
 })
 

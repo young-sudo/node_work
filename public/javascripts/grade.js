@@ -1,4 +1,8 @@
 $(document).ready(function () {
+    //重置
+    $('#but_reset').click(function () {
+        fun_reset();
+    })
     //提交时
     var inp_arr = [];
     $('#but_sub').click(function () {
@@ -13,19 +17,31 @@ $(document).ready(function () {
             var score_ = inp_arr[3];
             var exam_ = inp_arr[4];
             var type_ = inp_arr[5];
+            var url;
+            if ($('h3')[0].innerHTML == '添加') {
+                url = '/grade/addgrade';
+            } else if ($('h3')[0].innerHTML == '修改') {
+                url = '/grade/change_grade';
+            }
             $.ajax({
                 type: 'post',
-                url: '/grade/addgrade',
+                url: url,
                 data: {
                     name: name_,
                     number: number_,
-                    sex:sex_,
+                    sex: sex_,
                     score: score_,
                     exam: exam_,
-                    type:type_
+                    type: type_
                 },
                 success: function (data) {
-                    alert(data)
+                    alert(data);
+                    if (data == 'success') {
+                        if (url == '/grade/addgrade') {
+                            url = '/grade';
+                        }
+                        window.location.href = url;
+                    }
                 }
             })
         } else {
@@ -61,7 +77,9 @@ $(document).ready(function () {
     $('input')[5].onblur = function () {
         c_type = check_type(this);
     };
-
+    $('#page_but').click(function () {
+        window.open('/teacher', 'newwindow', 'scrollbars=no,toolbar=no,resizable=no,status=no,width=800,height=500')
+    })
 
 
 })
@@ -202,3 +220,11 @@ function check_type(i) {
     }
     return flag;
 };
+function fun_reset() {
+    $('input')[0].value = '';
+    $('input')[1].value = '';
+    $('input')[2].value = '';
+    $('input')[3].value = '';
+    $('input')[4].value = '';
+    $('input')[5].value = '';
+}

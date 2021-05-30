@@ -112,6 +112,7 @@
     position: relative;
     left: 305px;
     top: 500px;
+    display: none;
 }
 .set_teacher_div table tr{
     height: 40px;

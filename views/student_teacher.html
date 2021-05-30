@@ -59,7 +59,7 @@
             </div>
         </div>
           <div class="right_div">
-            <div id="right_top_div"><%= key %>的成绩</div>
+            <div id="right_top_div"><%= key.title %>的成绩</div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -86,19 +86,19 @@
                 </tbody>
             </table>
         </div>
-        <div class="set_teacher_div">
+        <div class="set_teacher_div" id="set_teacher_div">
             <table class="table">
                 <tr>
-                    <td><button class="addgrade_but" style="border: none;">添加学生成绩</button></td>
+                    <td><button  id="addgrade_but" style="border: none;">添加学生成绩</button></td>
                 </tr>
                 <tr>
-                    <td>修改学生成绩</td>
+                    <td><button id="change_grade_but" style="border: none;">修改学生成绩</button></td>
                 </tr>
                 <tr>
-                    <td>删除学生成绩</td>
+                    <td><button style="border: none;" onclick="alert('你没有权限')">删除学生成绩</button></td>
                 </tr>
                 <tr>
-                    <td>关于网站...</td>
+                    <td><button style="border: none;" onclick="alert('没有')">关于网站...</button></td>
                 </tr>
             </table>
         </div>
