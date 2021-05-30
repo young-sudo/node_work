@@ -8,35 +8,35 @@ $(document).ready(function () {
     };
 
     $('.img_qq').click(function () {
-       if( $('.img_qq_big')[0].style.display == "block"){
-        $('.img_qq_big')[0].style.display = "none"
-       }else{
-        $('.img_qq_big')[0].style.display = "block"
-       };
+        if ($('.img_qq_big')[0].style.display == "block") {
+            $('.img_qq_big')[0].style.display = "none"
+        } else {
+            $('.img_qq_big')[0].style.display = "block"
+        };
     })
     $('.img_qq_big').click(function () {
         $(this)[0].style.display = "none";
 
     })
     $('.set_div').click(function () {
-       if( $('.settype_div')[0].style.display == 'block'){
-        $('.settype_div')[0].style.display = 'none';
-       }else{
-        $('.settype_div')[0].style.display = 'block'
-       };
+        if ($('.settype_div')[0].style.display == 'block') {
+            $('.settype_div')[0].style.display = 'none';
+        } else {
+            $('.settype_div')[0].style.display = 'block'
+        };
     })
     $('.left_type').each(function () {
         $(this).click(function () {
-           console.log($(this)[0].childNodes[0].data)
+            console.log($(this)[0].childNodes[0].data)
             var value_ = $(this)[0].childNodes[0].data;
             if (value_ == '账号详情') {
-              window.location.href = '/details';
-            } else if (value_ == '问题反馈') {  
-               if(_identity == 'student'){
-                   alert(1)
-               }else{
-                   alert(2)
-               }
+                window.location.href = '/details';
+            } else if (value_ == '问题反馈') {
+                if (_identity == 'student') {
+                    alert(1)
+                } else {
+                    alert(2)
+                }
             } else {
                 $.post("/" + _identity + "/exam",
                     {
@@ -51,8 +51,15 @@ $(document).ready(function () {
             }
         })
     })
-    $('.addgrade_but').click(function(){
-       window.open('/teacher/grade','newwindow','scrollbars=no,toolbar=no,resizable=no,status=no,width=500,height=500')
+    $('.addgrade_but').click(function () {
+        //    window.open('/grade','newwindow','scrollbars=no,toolbar=no,resizable=no,status=no,width=500,height=500')
+        $.ajax({
+            type: 'get',
+            url: '/grade',
+            success: function () {
+                window.location.href = '/grade';
+            }
+        })
     })
 })
 
@@ -78,7 +85,7 @@ function login() {
 function logout() {
     var r = confirm("确认退出登陆？");
     if (r == true) {
-        $.get('/magager/logout',function(data){
+        $.get('/magager/logout', function (data) {
             window.location.href = data;
         });
         return true;

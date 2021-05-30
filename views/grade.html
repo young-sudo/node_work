@@ -10,23 +10,29 @@
     <script src="/javascripts/grade.js"></script>
     <style>
         #big_div{
+            border: 1px solid black;
+            border-radius: 5px;
             position: relative;
             left: 30%;
         }
     </style>
 </head>
 <body>
-    <div id="big_div" style="width: 300px;height: 300px;">
+    <div id="big_div" style="width: 400px;height: 500px;">
+        <h3 style="text-align: center;"><%= key.title %></h3>
        <form>
         <table class="table ">
             <tbody>
                 <tr>
                     <td>学生姓名:
-                        <input type="text" placeholder="name" /></td>
+                        <input type="text" placeholder="name" />
+                        <span></span>
+                    </td>
                 </tr>
                 <tr>
                     <td>学生编号:
-                        <input type="number" placeholder="number"/></td>
+                        <input type="number" placeholder="number"/>
+                        <span></span></td>
                 </tr>
                 <tr>
                     <td>学生性别:
@@ -35,11 +41,13 @@
                             <option>男</option>
                             <option>女</option>
                         </datalist>
+                        <span></span>
                     </td>
                 </tr>
                 <tr>
                     <td>学生成绩:
-                        <input type="number" placeholder="score" /></td>
+                        <input type="number" placeholder="score" />
+                        <span></span></td>
                 </tr>
                 <tr>
                     <td>考试类型:
@@ -51,6 +59,7 @@
                             <option>期末考</option>
                             <option>联考</option>
                         </datalist>
+                        <span></span>
                     </td>
                 </tr>
                 <tr>
@@ -66,15 +75,16 @@
                             <option>政治</option>
                             <option>历史</option>
                             <option>地理</option>
-                            <option>科学</option>
+                            <option>体育</option>
                         </datalist>
+                        <span></span>
                     </td>
                 </tr>
               
             </tbody>
             <tfoot>
                 <tr>
-                    <td>
+                    <td style="text-align: center;">
                         <input type="reset" value="重置"/>
                         <input type="button" id="but_sub" value="提交"/>
                     </td>

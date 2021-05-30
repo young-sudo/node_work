@@ -51,7 +51,6 @@ router.get('/check2', (req, res) => {
 })
 //   3
 router.get('/third', (req, res) => {
-    console.log(user)
     if(user == undefined){
         res.redirect('/forget');
         return;
