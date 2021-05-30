@@ -8,6 +8,7 @@ $(document).ready(function () {
     //提交按钮
     var btn = $('#btn_submit');
     btn.click(function () {
+        var identity = $('.identity')[0].value;
         if (check_number && check_name && check_sex && check_age && check_user && check_password && check_repassword && check_phonenumber) {
             $.ajax({
                 type: 'post',
@@ -26,7 +27,7 @@ $(document).ready(function () {
                  if(data == 'err'){
                      alert('error')
                  }else{
-                     window.location.href= data
+                     window.location.href= data;
                  }
                 }
             })
@@ -67,8 +68,6 @@ $(document).ready(function () {
     var inp_password = $('input')[5];
     var inp_repassword = $('input')[6];
     var inp_phonenumber = $('input')[7];
-    var identity = $('.identity')[0].value;
-    // console.log(identity)
 
     var check_number = false;
     var check_name = false;
@@ -127,7 +126,7 @@ function number(i) {
         flag = false;
         text.style.color = 'red';
         text.innerHTML = '不能去为空，只能为数字且长度为5-10位';
-    }else{
+    } else {
         $.ajax({
             type: 'post',
             url: '/register/number',
@@ -135,14 +134,14 @@ function number(i) {
                 key: number
             },
             success: function (data) {
-                if(data != 'success'){
+                if (data != 'success') {
                     text.innerHTML = data;
                     text.style.color = 'red';
                 }
             }
         })
     }
-     return flag;
+    return flag;
 }
 
 
@@ -156,7 +155,7 @@ function uname(i) {
         flag = false;
         text.style.color = 'red';
         text.innerHTML = '不能去为空，长度为1-6位';
-    }else{
+    } else {
         $.ajax({
             type: 'post',
             url: '/register/name',
@@ -193,15 +192,15 @@ function age(i) {
     text.style.color = 'green';
     text.innerHTML = 'success';
     var flag = true;
-    if(age == ''){
+    if (age == '') {
         flag = false;
         text.style.color = 'red';
         text.innerHTML = '不能去为空';
-    }else if (!/^[0-9]*$/.test(age)) {
+    } else if (!/^[0-9]*$/.test(age)) {
         flag = false;
         text.style.color = 'red';
         text.innerHTML = '只能为数字';
-    }else{
+    } else {
         if (age < 0 || age > 100) {
             flag = false;
             text.style.color = 'red';
@@ -221,7 +220,7 @@ function user(i) {
         flag = false;
         text.style.color = 'red';
         text.innerHTML = '由字母开头，字母、数字、下划线组成,4-16位';
-    }else{
+    } else {
         $.ajax({
             type: 'post',
             url: '/register/user',
@@ -229,7 +228,7 @@ function user(i) {
                 key: user
             },
             success: function (data) {
-               if (data != 'success') {
+                if (data != 'success') {
                     text.style.color = 'red';
                     text.innerHTML = data;
                 }

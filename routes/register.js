@@ -27,6 +27,9 @@ router.post('/', (req, res) => {
     var sql = "INSERT INTO member(number,name,sex,age,user,password,phonenumber,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
     connection.query(sql,
         [user.number, user.name, user.sex, user.age, user.user, user.password, user.phonenumber, user.identity, user.create_time], function (err, results, fields) {
+          if(err != null){
+              throw err;
+          }
             if (req.session.user != undefined) {
                 // console.log(req.session.user)          //session
                 if (req.session.user.identity == '学生') {
@@ -47,6 +50,9 @@ router.post('/', (req, res) => {
 router.post('/number', (req, res) => {
     // console.log(req.body.key);
     connection.query("select * from member where number=?", [req.body.key], function (err, results, fields) {
+        if(err != null){
+            throw err;
+        }
         if (results[0] == null) {
             res.send('success')
         } else {
@@ -57,6 +63,9 @@ router.post('/number', (req, res) => {
 
 router.post('/name', (req, res) => {
     connection.query("select * from member where name=?", [req.body.key], function (err, results, fields) {
+        if(err != null){
+            throw err;
+        }
         if (results[0] == null) {
             res.send('success')
         } else {
@@ -67,6 +76,9 @@ router.post('/name', (req, res) => {
 
 router.post('/user', (req, res) => {
     connection.query("select * from member where user=?", [req.body.key], function (err, results, fields) {
+        if(err != null){
+            throw err;
+        }
         if (results[0] == null) {
             res.send('success')
         } else {

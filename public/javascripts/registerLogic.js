@@ -41,9 +41,6 @@ function identity() {
         indentity = '老师';
     }
     $('.identity').attr('value', indentity);
-
-
-
 }
 //获取颜色 用于判断
 function colorV() {
