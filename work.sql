@@ -11,7 +11,7 @@
  Target Server Version : 80024
  File Encoding         : 65001
 
- Date: 25/05/2021 18:06:33
+ Date: 31/05/2021 12:45:34
 */
 
 SET NAMES utf8mb4;
@@ -25,7 +25,7 @@ CREATE TABLE `course`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `type` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 11 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of course
@@ -49,7 +49,7 @@ CREATE TABLE `exam`  (
   `id` int(0) NOT NULL AUTO_INCREMENT,
   `type` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of exam
@@ -71,7 +71,7 @@ CREATE TABLE `member`  (
   `sex` enum('男','女') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '男',
   `age` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `user` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `password` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `password` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `phonenumber` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `identity` enum('学生','老师','管理员') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '学生',
   `islogout` enum('no','yes') CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'no',
@@ -79,24 +79,27 @@ CREATE TABLE `member`  (
   `logout_time` datetime(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `user`(`user`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of member
 -- ----------------------------
-INSERT INTO `member` VALUES (1, 11111111, '凯', '男', '21', '凯', '111', '1315551', '管理员', 'no', '2021-05-25 00:00:00', '2021-05-25 00:00:00');
-INSERT INTO `member` VALUES (2, 712872, '曜', '男', '12', '曜', '222', '23121', '老师', 'no', '2021-05-19 00:00:00', '2021-05-25 00:00:00');
-INSERT INTO `member` VALUES (3, 912828, '镜', '女', '19', '镜', '333', '15615644', '老师', 'no', '2021-05-25 00:00:00', NULL);
-INSERT INTO `member` VALUES (4, 641, '韩信', '男', '18', '韩信', '444', '58558652', '学生', 'no', '2021-05-13 00:00:00', NULL);
-INSERT INTO `member` VALUES (5, 641153, '李白', '男', '18', '李白', '555', '12121111222', '学生', 'no', '2021-05-25 00:00:00', NULL);
-INSERT INTO `member` VALUES (6, 122322, '云中君', '男', '46', '云中君', '777', '48989', '学生', 'no', '2021-05-26 00:00:00', NULL);
-INSERT INTO `member` VALUES (7, 87972, '露娜', '女', '17', '露娜', '666', '5615651', '学生', 'no', '2021-05-28 00:00:00', NULL);
-INSERT INTO `member` VALUES (8, 5661561, '貂蝉', '女', '19', '貂蝉', '888', '5455', '学生', 'no', '2021-05-25 00:00:00', NULL);
-INSERT INTO `member` VALUES (9, 6525654, '妲己', '女', '90', '妲己', '1111', '561616', '学生', 'no', '2021-05-25 16:03:36', NULL);
-INSERT INTO `member` VALUES (10, 2333333, '娜可露露', '女', '38', '娜可露露', '2222', '561616', '学生', 'no', '2021-05-12 00:00:00', NULL);
-INSERT INTO `member` VALUES (11, 836219, '橘右京', '男', '25', '橘右京', '3333', '65646', '学生', 'no', '2021-05-04 00:00:00', NULL);
-INSERT INTO `member` VALUES (12, 893128, '不知火舞', '女', '11', '不知火舞', '4444', '12121111222', '老师', 'no', '2021-05-25 16:04:26', NULL);
-INSERT INTO `member` VALUES (13, 64115, '安琪拉', '女', '18', '安琪拉', '3333', '12121111222', '学生', 'no', '2021-05-25 00:00:00', NULL);
+INSERT INTO `member` VALUES (1, 111111, '凯', '男', '21', '凯', '698d51a19d8a121ce581499d7b701668', '13117808152', '管理员', 'no', '2021-05-25 00:00:00', NULL);
+INSERT INTO `member` VALUES (2, 712872, '曜', '男', '12', '曜', 'bcbe3365e6ac95ea2c0343a2395834dd', '23121', '管理员', 'no', '2021-05-19 00:00:00', NULL);
+INSERT INTO `member` VALUES (3, 641153, '镜', '女', '18', '镜', '698d51a19d8a121ce581499d7b701668', '13121111222', '老师', 'no', '2021-05-30 21:24:58', NULL);
+INSERT INTO `member` VALUES (4, 641, '韩信', '男', '18', '韩信', '550a141f12de6341fba65b0ad0433500', '58558652', '学生', 'no', '2021-05-13 00:00:00', NULL);
+INSERT INTO `member` VALUES (5, 641213, '李白', '男', '18', '李白', '15de21c670ae7c3f6f3f1f37029303c9', '12121111222', '学生', 'no', '2021-05-25 00:00:00', NULL);
+INSERT INTO `member` VALUES (6, 122322, '云中君', '男', '46', '云中君', 'fae0b27c451c728867a567e8c1bb4e53', '48989', '学生', 'no', '2021-05-26 00:00:00', NULL);
+INSERT INTO `member` VALUES (7, 87972, '露娜', '女', '17', '露娜', 'f1c1592588411002af340cbaedd6fc33', '5615651', '学生', 'no', '2021-05-28 00:00:00', NULL);
+INSERT INTO `member` VALUES (8, 5661561, '貂蝉', '女', '19', '貂蝉', '0a113ef6b61820daa5611c870ed8d5ee', '5455', '学生', 'no', '2021-05-25 00:00:00', NULL);
+INSERT INTO `member` VALUES (9, 6525654, '妲己', '女', '90', '妲己', 'b706835de79a2b4e80506f582af3676a', '561616', '学生', 'no', '2021-05-25 16:03:36', NULL);
+INSERT INTO `member` VALUES (10, 2333333, '娜可露露', '女', '38', '娜可露露', '934b535800b1cba8f96a5d72f72f1611', '561616', '学生', 'no', '2021-05-12 00:00:00', NULL);
+INSERT INTO `member` VALUES (11, 836219, '橘右京', '男', '25', '橘右京', '2be9bd7a3434f7038ca27d1918de58bd', '65646', '学生', 'no', '2021-05-04 00:00:00', NULL);
+INSERT INTO `member` VALUES (12, 893128, '不知火舞', '女', '11', '不知火舞', '698d51a19d8a121ce581499d7b701668', '12121111222', '学生', 'yes', '2021-05-25 16:04:26', NULL);
+INSERT INTO `member` VALUES (13, 64115, '安琪拉', '女', '18', '安琪拉', '698d51a19d8a121ce581499d7b701668', '12121111222', '学生', 'no', '2021-05-25 00:00:00', NULL);
+INSERT INTO `member` VALUES (14, 614115, '周瑜', '男', '92', '周瑜', '698d51a19d8a121ce581499d7b701668', '12122111222', '学生', 'no', '2021-05-25 22:32:01', NULL);
+INSERT INTO `member` VALUES (15, 515645, '百里守约', '男', '34', '百里守约', '698d51a19d8a121ce581499d7b701668', '5494954565', '学生', 'no', '2021-05-25 22:34:44', NULL);
+INSERT INTO `member` VALUES (16, 2787633, '百里玄策', '男', '29', '百里玄策', '698d51a19d8a121ce581499d7b701668', '546587789', '学生', 'no', '2021-04-30 22:34:48', NULL);
 
 -- ----------------------------
 -- Table structure for score
@@ -109,17 +112,27 @@ CREATE TABLE `score`  (
   `course_id` int(0) NULL DEFAULT NULL,
   `exam_id` int(0) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of score
 -- ----------------------------
 INSERT INTO `score` VALUES (1, 10, 88, 10, 5);
-INSERT INTO `score` VALUES (2, 4, 23, 3, 3);
+INSERT INTO `score` VALUES (2, 4, 60, 3, 3);
 INSERT INTO `score` VALUES (3, 5, 92, 7, 1);
 INSERT INTO `score` VALUES (4, 10, 93, 5, 4);
 INSERT INTO `score` VALUES (5, 4, 58, 8, 2);
 INSERT INTO `score` VALUES (6, 8, 90, 9, 3);
+INSERT INTO `score` VALUES (7, 16, 29, 2, 1);
+INSERT INTO `score` VALUES (8, 12, 94, 2, 1);
+INSERT INTO `score` VALUES (9, 11, 92, 2, 1);
+INSERT INTO `score` VALUES (10, 11, 86, 2, 3);
+INSERT INTO `score` VALUES (11, 16, 100, 1, 1);
+INSERT INTO `score` VALUES (12, 16, 49, 9, 1);
+INSERT INTO `score` VALUES (24, 16, 16, 10, 4);
+INSERT INTO `score` VALUES (25, 16, 91, 6, 5);
+INSERT INTO `score` VALUES (26, 16, 13, 10, 5);
+INSERT INTO `score` VALUES (27, 10, 60, 6, 3);
 
 -- ----------------------------
 -- View structure for v_student

@@ -72,8 +72,9 @@ router.post('/search', (req, res) => {
         ;
 
     connection.query(sql, function (err, rows) {
-        // console.log(err);
-        // console.log(rows)
+       if(err != null){
+           throw err;
+       }
         format(rows);
         if (rows[0] == null) {
             res.send('null');
@@ -84,10 +85,10 @@ router.post('/search', (req, res) => {
 })
 
 router.post('/change', (req, res) => {
-    var c_value = req.body.value;
-    var c_index = req.body.index;
-    var c_user = req.body.user;
-    connection.query('update member set  ' + c_index + ' = ? where user = ?', [c_value, c_user], function (err, results, fields) {
+    var c_value = req.body.value;        //改变后的input值
+    var c_index = req.body.index;           //改变的input的列名 id，number，user等
+    var c_user = req.body.user;             //错误的原因：它是不会发生变化的 ; 解决方法：在前面改变它
+    connection.query('update member set  ' + c_index + ' = ? where user = ?', [c_value, c_user], function (err, results) {
         if (err != null) {
             res.send('error')
         } else {

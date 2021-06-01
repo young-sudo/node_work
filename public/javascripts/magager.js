@@ -147,11 +147,15 @@ function change() {
             var td_input = list[j].children[0]
             // console.log(td_input)      //获取具体单元格    odject  
             td_input.onchange = function () {
-                // console.log(this)             //选中的input
-                // console.log(this.value)                //改变后的值
+                // console.log(this)             //选中的input  它是不会变的
+                // console.log(this.value)                //改变后的值 
                 // console.log(this.parentNode.parentNode)    //改变input所在的tr
-                // console.log(this.parentNode.parentNode.children[5].children[0].attributes[1].value)   //改变input所在的tr 的user
-
+                // console.log(this.parentNode.parentNode.children[5].children[0].attributes[1].value)   //改变input所在的tr 的user 它是不会变的，所以不能用它。
+                
+                var c_value = this.value;          // 用户改变了的值
+                var c_user = this.parentNode.parentNode.children[5].children[0].attributes[1];  // c_user.value= ？这种方式才可以改变原有的user值。
+                //c_index      用户改变的input框所在的列的下标，然后获得它所代表的列的value，即id，user等
+                // 由于本人数据库数据修改时，用的是where=user。即只要修改user的原始值即可，其它的可用可不用。所以没有改。
                 var a = this;
                 var b = this.parentNode.parentNode.children;
                 function _index() {
@@ -187,23 +191,23 @@ function change() {
                 } else {
                     c_index = 'logout_time';
                 }
-                var c_value = this.value;
-                var c_user = this.parentNode.parentNode.children[5].children[0].attributes[1].value;
-
+                
                 $.ajax({
                     type: 'post',
                     url: "/magager/change",
                     data: {
                         value: c_value,
                         index: c_index,
-                        user: c_user
+                        user: c_user.value
                     },
                     success: function (data) {
                         //错误就刷新页面
                         if (data != 'success') {
                             window.location.href = '/magager/';
                         }
-
+                       if( c_index == 'user'){
+                        c_user.value =c_value; //改变原有input的 user值
+                       }
                     },
                     //异常处理
                     error: function (e) {
