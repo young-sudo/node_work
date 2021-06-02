@@ -5,6 +5,7 @@ $(document).ready(function () {
         _identity = 'student';
     } else {
         _identity = 'teacher';
+        $('.tea_search_stu')[0].style.display = 'block';
     };
 
     $('.img_qq').click(function () {
@@ -33,17 +34,17 @@ $(document).ready(function () {
                 window.location.href = '/details';
             } else if (value_ == '问题反馈') {
                 if (_identity == 'student') {
-                    var but_s_s =$("#set_student_div")[0].style;
-                    if(but_s_s.display == 'block'){
+                    var but_s_s = $("#set_student_div")[0].style;
+                    if (but_s_s.display == 'block') {
                         but_s_s.display = 'none'
-                    }else{
+                    } else {
                         but_s_s.display = 'block'
                     }
                 } else {
-                    var but_s_t =$("#set_teacher_div")[0].style;
-                    if(but_s_t.display == 'block'){
+                    var but_s_t = $("#set_teacher_div")[0].style;
+                    if (but_s_t.display == 'block') {
                         but_s_t.display = 'none'
-                    }else{
+                    } else {
                         but_s_t.display = 'block'
                     }
                 }
@@ -71,9 +72,14 @@ $(document).ready(function () {
             }
         })
     })
-    $('#change_grade_but').click(function(){
+    $('#change_grade_but').click(function () {
         window.location.href = '/grade/change_grade';
     })
+    //点击按钮查询
+    $('#img').click(function () {
+        search();
+    })
+
 })
 
 function islogout() {
@@ -120,4 +126,27 @@ function update() {
     </tr>
     `
     ).join('');
+}
+//teacher
+function search() {
+    var search_value = $('#search')[0].value;
+    if (search_value != '') {
+        $.get('/teacher/search', { data: search_value }, (data) => {
+            if (data[0] != undefined) {
+                arr = data;
+                update()
+            } else {
+                $('#showData')[0].innerHTML = '<tr><td colspan = "6" style = "color :red; font-size:50px">没有数据</td></tr>';
+                setTimeout(function () {
+                    window.location = '/teacher';
+                }, 1000)
+            }
+        })
+    } else {
+        $('#showData')[0].innerHTML = '<tr><td colspan = "6" style = "color :red; font-size:50px">请填写</td></tr>'
+        setTimeout(function () {
+            window.location = '/teacher';
+        }, 1000)
+    }
+
 }

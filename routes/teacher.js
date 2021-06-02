@@ -50,5 +50,18 @@ router.post('/exam', function (req, res, next) {
       res.send(results);
    })
 });
+router.get('/search',(req,res) => {
+   var sql = "select * from v_student where name = "+ connection.escape(req.query.data)
+   + " UNION SELECT * from v_student where number = "+ connection.escape(req.query.data)
+   + " UNION SELECT * from v_student where sex = "+ connection.escape(req.query.data)
+   + " UNION SELECT * from v_student where type = "+ connection.escape(req.query.data)
+   + " UNION SELECT * from v_student where score = " + connection.escape(req.query.data)
+   + " UNION SELECT * from v_student where exam = "+ connection.escape(req.query.data)
+   ;
+   connection.query(sql,(err,rows) => {
+     if(err != null){throw err};
+     res.send(rows)
+   })
+})
 
 module.exports = router;
