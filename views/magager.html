@@ -18,19 +18,19 @@
         <p class="div_p">后台管理</p>
         <table class="table table-bordered">
             <thead>
-                <tr>
-                    <th>id</th>
-                    <th>number</th>
-                    <th>name</th>
-                    <th>sex</th>
-                    <th>age</th>
-                    <th>user</th>
-                    <th>password</th>
-                    <th>phonenumber</th>
-                    <th>identity *</th>
-                    <th>islogout</th>
-                    <th>createTime</th>
-                    <th>logoutTime</th>
+                <tr style=" font-size:medium">
+                    <th class="asc_desc" >id</th>
+                    <th class="asc_desc">number</th>
+                    <th class="asc_desc">name</th>
+                    <th class="asc_desc">sex</th>
+                    <th  class="asc_desc" id="age_desc" >age</th>
+                    <th class="asc_desc">user</th>
+                    <th class="asc_desc">password</th>
+                    <th class="asc_desc">phonenumber</th>
+                    <th class="asc_desc">identity </th>
+                    <th class="asc_desc">islogout</th>
+                    <th  class="asc_desc" id="createtime_desc">createTime</button></th>
+                    <th class="asc_desc">logoutTime</th>
                     <th>删除</th>
                 </tr>
             </thead>
@@ -45,14 +45,24 @@
                         <td><input type="text" value="<%=obj.user %>" ></td>
                         <td><input type="text" value="<%=obj.password %>"></td>
                         <td><input type="text" value="<%=obj.phonenumber %>"></td>
-                        <td><input type="text" value="<%=obj.identity %>">*</td>
+                        <td><input type="text" value="<%=obj.identity %>"></td>
                         <td><input type="text" value="<%=obj.islogout %>"></td>
                         <td><input type="text" value="<%=obj.create_time %>" style="width: 150px;"></td>
                         <td><input type="text" value="<%=obj.logout_time %>" style="width: 150px;"></td>
                         <td><input type="text" class="del_button" ind="<%=i %>" value="删除"></td>
                     </tr>
                     <% }) %>
-
+                    <!-- <tfoot style="text-align: center; font-size: medium;">
+                        <tr>  
+                            <td colspan="5"></td>
+                            <td>首页</td>
+                            <td>上一页</td>
+                            <td>n</td>
+                            <td>下一页</td>
+                            <td>尾页</td>
+                            <td colspan="3"></td>
+                        </tr>
+                    </tfoot> -->
             </tbody>
         </table>
         <div class="touxiang" onclick="display()"></div>

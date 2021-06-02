@@ -29,7 +29,7 @@ router.all('/', (req, res, next) => {
 })
 
 router.get('/', (req, res) => {
-    var sql = 'select * from member ORDER BY identity desc';
+    var sql = 'select * from member ORDER BY identity desc ';
     connection.query(sql, function (err, results, fields) {
         // 格式化时间
         format(results);
@@ -68,13 +68,13 @@ router.post('/search', (req, res) => {
 
     var sql = " SELECT * FROM member where user like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where name like " + connection.escape('%' + search_inp + '%')
         + " UNION SELECT * from member where number like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where sex like " + connection.escape('%' + search_inp + '%')
-        + " UNION SELECT * from member where identity like " + connection.escape('%' + search_inp + '%')+ " UNION SELECT * from member where islogout like " + connection.escape('%' + search_inp + '%')
+        + " UNION SELECT * from member where identity like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where islogout like " + connection.escape('%' + search_inp + '%')
         ;
 
     connection.query(sql, function (err, rows) {
-       if(err != null){
-           throw err;
-       }
+        if (err != null) {
+            throw err;
+        }
         format(rows);
         if (rows[0] == null) {
             res.send('null');
@@ -87,8 +87,8 @@ router.post('/search', (req, res) => {
 router.post('/change', (req, res) => {
     var c_value = req.body.value;        //改变后的input值
     var c_index = req.body.index;           //改变的input的列名 id，number，user等
-    var c_user = req.body.user;             //错误的原因：它是不会发生变化的 ; 解决方法：在前面改变它
-    connection.query('update member set  ' + c_index + ' = ? where user = ?', [c_value, c_user], function (err, results) {
+    var c_id = req.body.id;             //错误的原因：它是不会发生变化的 ; 解决方法：在前面改变它
+    connection.query('update member set  ' + c_index + ' = ? where id = ?', [c_value, c_id], function (err, results) {
         if (err != null) {
             res.send('error')
         } else {
@@ -106,15 +106,31 @@ router.get('/islogout', (req, res) => {
     })
 })
 
-router.get('/logout', function(req,res){
-  // 消除sesssion
-     req.session.destroy();
-     res.send('/login');
+router.get('/logout', function (req, res) {
+    // 消除sesssion
+    req.session.destroy();
+    res.send('/login');
 })
 
-router.post('/password',(req,res) =>{
+router.post('/password', (req, res) => {
     // console.log(req.body);       //[Object: null prototype] { data: '111' }
-    // console.log(req.body.data);
-    res.send( md5(req.body.data))
+    res.send(md5(req.body.data))
+})
+
+router.get('/desc', (req, res) => {
+    // console.log(req.query);      //{ sort: 'DESC', type: 'sex', identity: '' }
+    let type = req.query.type;
+    let sort = req.query.sort;
+    let identity = req.query.identity;
+    if(identity != ''){
+        var sql = 'select * from member where identity = '+ connection.escape(identity) + ' ORDER BY '+ type +' '+ sort ;
+    }else{
+        var sql = 'select * from member ORDER BY '+ type +' '+ sort ;
+    }
+    connection.query(sql, (err, rows) => {
+        if (err != null) { throw err }
+        format(rows);
+        res.send(rows);
+    })
 })
 module.exports = router;

@@ -1,4 +1,5 @@
 var arr = [];
+var New_identity = '';
 $(document).ready(function () {
     del();
     change();
@@ -29,6 +30,7 @@ $(function () {
 //学生
 $(function () {
     $('#student').click(function () {
+        New_identity = '学生';
         $.ajax({
             type: 'post',
             url: '/magager/student',
@@ -46,6 +48,7 @@ $(function () {
 //老师
 $(function () {
     $('#teacher').click(function () {
+        New_identity = '老师';
         $.ajax({
             type: 'post',
             url: '/magager/teacher',
@@ -62,6 +65,7 @@ $(function () {
 //管理员
 $(function () {
     $('#mamager').click(function () {
+        New_identity =  '管理员';
         $.ajax({
             type: 'post',
             url: '/magager/magager',
@@ -147,15 +151,10 @@ function change() {
             var td_input = list[j].children[0]
             // console.log(td_input)      //获取具体单元格    odject  
             td_input.onchange = function () {
-                // console.log(this)             //选中的input  它是不会变的
-                // console.log(this.value)                //改变后的值 
-                // console.log(this.parentNode.parentNode)    //改变input所在的tr
-                // console.log(this.parentNode.parentNode.children[5].children[0].attributes[1].value)   //改变input所在的tr 的user 它是不会变的，所以不能用它。
-                
                 var c_value = this.value;          // 用户改变了的值
-                var c_user = this.parentNode.parentNode.children[5].children[0].attributes[1];  // c_user.value= ？这种方式才可以改变原有的user值。
+                var c_id = this.parentNode.parentNode.children[0].children[0].attributes[1];  // c_user.value= ？这种方式才可以改变原有的id值。
                 //c_index      用户改变的input框所在的列的下标，然后获得它所代表的列的value，即id，user等
-                // 由于本人数据库数据修改时，用的是where=user。即只要修改user的原始值即可，其它的可用可不用。所以没有改。
+                // 由于本人数据库数据修改时，用的是where=id。即只要修改id的原始值即可，其它的可用可不用。所以没有改。
                 var a = this;
                 var b = this.parentNode.parentNode.children;
                 function _index() {
@@ -191,23 +190,23 @@ function change() {
                 } else {
                     c_index = 'logout_time';
                 }
-                
+
                 $.ajax({
                     type: 'post',
                     url: "/magager/change",
                     data: {
                         value: c_value,
                         index: c_index,
-                        user: c_user.value
+                        id: c_id.value
                     },
                     success: function (data) {
                         //错误就刷新页面
                         if (data != 'success') {
                             window.location.href = '/magager/';
                         }
-                       if( c_index == 'user'){
-                        c_user.value =c_value; //改变原有input的 user值
-                       }
+                        if (c_index == 'id') {
+                            c_id.value = c_value; //改变原有input的 user值
+                        }
                     },
                     //异常处理
                     error: function (e) {
@@ -219,14 +218,52 @@ function change() {
     }
 
 }
+//md5转换
 $(document).ready(function () {
     $(".flip").click(function () {
         $(".panel").slideToggle("slow");
     });
-    //md5转换
     $('#before_pass').blur(function () {
         $.post('/magager/password', { data: $(this).val() }, (data) => {
             $("#after_pass").val(data)
         })
     })
+    
 });
+ //sort排序 
+$(document).ready(function(){
+  $('.asc_desc').each(function(){
+    var i =0;
+      $(this).click(function(){
+        // console.log(New_identity)   // 解决了双Ajax请求数据冲突，即选择身份后的排序失去身份前提
+        // console.log(i);   // 点击不同列的i不相同
+        i++;
+        let type = $(this)[0].innerHTML;
+        var identity = New_identity;
+        sort(i,type,identity)  
+      })
+  })
+
+})
+
+function sort(i, ty,identity) {     //h 排序方式  ty 排序类型 id,age createtime
+    if (i % 2 != 0) {  //奇数 降序 sort
+        h = 'DESC';
+    } else {
+        h = 'ASC';
+    }
+    //由于前端页面 需将createTime，logoutTime 转换成create_time,logout_time
+    if(ty == 'createTime') {
+        ty = 'create_time';
+    }else if( ty == 'logoutTime'){
+        ty = 'logout_time';
+    }else{
+        ty = ty;
+    }
+    $.get('/magager/desc', { sort: h, type: ty , identity:identity}, (data) => {
+        arr = data
+        update();
+        del();
+        change();
+    })
+}
