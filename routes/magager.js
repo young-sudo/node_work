@@ -10,7 +10,7 @@ router.all('/', (req, res, next) => {
     if (req.session.user != undefined && req.session.user.identity == '管理员') {
         var sql = 'select islogout from member where user = ?'
         connection.query(sql, [req.session.user.user], function (err, results, fields) {
-            if (err != null) {
+            if (err) {
                 console.log(err);
                 res.render("error", { text: err });
             } else {
@@ -29,37 +29,67 @@ router.all('/', (req, res, next) => {
 })
 
 router.get('/', (req, res) => {
-    var sql = 'select * from member ORDER BY identity desc ';
+    var sql = 'select * from member ORDER BY identity desc limit 0,10';
     connection.query(sql, function (err, results, fields) {
         // 格式化时间
         format(results);
-        res.render('magager', {
-            list: results,
-            key: req.session.user
+        connection.query('select count(id) sum from member', (err, rows) => {
+            if (err) { throw err };
+            var page = parseInt(rows[0].sum / 10) + 1; //页码
+            res.render('magager', {
+                list: results,
+                key: req.session.user,
+                page: page
+            })
         })
     })
 
 })
 
 router.post('/student', (req, res) => {
-    connection.query("SELECT * FROM `member` where identity ='学生'", function (err, results, fields) {
-        format(results);
-        res.send(results);
-    });
+   //  promise_function('学生');
+   let identity ='学生';
+    connection.query("SELECT * FROM `member` where identity =" + connection.escape(identity) + " limit 0,10", (err, rows) => {
+        let dataAll = {};
+        if (err) { throw err };
+         format(rows);
+         dataAll.text =rows;
+        connection.query("select count(id) as sum from member where identity = ?", [identity], (err, rows) => {
+            if (err) { throw err };
+            dataAll.page = rows;
+           res.send(dataAll)
+        })
+    })
+});
 
-})
 router.post('/teacher', (req, res) => {
-    connection.query("SELECT * FROM `member` where identity ='老师'", function (err, results, fields) {
-        format(results);
-        res.send(results);
-    });
+    let identity ='老师';
+    connection.query("SELECT * FROM `member` where identity =" + connection.escape(identity) + " limit 0,10", (err, rows) => {
+        let dataAll = {};
+        if (err) { throw err };
+         format(rows);
+         dataAll.text =rows;
+        connection.query("select count(id) as sum from member where identity = ?", [identity], (err, rows) => {
+            if (err) { throw err };
+            dataAll.page = rows;
+           res.send(dataAll)
+        })
+    })
 
 })
 router.post('/magager', (req, res) => {
-    connection.query("SELECT * FROM `member` where identity ='管理员'", function (err, results, fields) {
-        format(results);
-        res.send(results);
-    });
+    let identity ='管理员';
+    connection.query("SELECT * FROM `member` where identity =" + connection.escape(identity) + " limit 0,10", (err, rows) => {
+        let dataAll = {};
+        if (err) { throw err };
+         format(rows);
+         dataAll.text =rows;
+        connection.query("select count(id) as sum from member where identity = ?", [identity], (err, rows) => {
+            if (err) { throw err };
+            dataAll.page = rows;
+           res.send(dataAll)
+        })
+    })
 
 })
 
@@ -72,7 +102,7 @@ router.post('/search', (req, res) => {
         ;
 
     connection.query(sql, function (err, rows) {
-        if (err != null) {
+        if (err) {
             throw err;
         }
         format(rows);
@@ -89,7 +119,7 @@ router.post('/change', (req, res) => {
     var c_index = req.body.index;           //改变的input的列名 id，number，user等
     var c_id = req.body.id;             //错误的原因：它是不会发生变化的 ; 解决方法：在前面改变它
     connection.query('update member set  ' + c_index + ' = ? where id = ?', [c_value, c_id], function (err, results) {
-        if (err != null) {
+        if (err) {
             res.send('error')
         } else {
             res.send('success')
@@ -115,22 +145,39 @@ router.get('/logout', function (req, res) {
 router.post('/password', (req, res) => {
     // console.log(req.body);       //[Object: null prototype] { data: '111' }
     res.send(md5(req.body.data))
-})
+});
 
 router.get('/desc', (req, res) => {
     // console.log(req.query);      //{ sort: 'DESC', type: 'sex', identity: '' }
     let type = req.query.type;
     let sort = req.query.sort;
     let identity = req.query.identity;
-    if(identity != ''){
-        var sql = 'select * from member where identity = '+ connection.escape(identity) + ' ORDER BY '+ type +' '+ sort ;
-    }else{
-        var sql = 'select * from member ORDER BY '+ type +' '+ sort ;
+    if (identity != '') {
+        var sql = 'select * from member where identity = ' + connection.escape(identity) + ' ORDER BY ' + type + ' ' + sort + ' limit 0,10';
+    } else {
+        var sql = 'select * from member ORDER BY ' + type + ' ' + sort + ' limit 0,10';
     }
     connection.query(sql, (err, rows) => {
         if (err != null) { throw err }
         format(rows);
         res.send(rows);
     })
+});
+
+router.post('/paging', (req, res) => {
+    var page = (req.body.page - 1) * 10;
+    var identity = req.body.identity;
+    if (identity == '') {
+        var sql = 'select * from member ORDER BY id limit ?,10';
+    } else {
+        var sql = 'select * from member where identity = ' + connection.escape(identity) + 'ORDER BY id  limit ?,10';
+    }
+    connection.query(sql, [page], (err, rows) => {
+        if (err) { throw err };
+        format(rows);
+        res.send(rows);
+    })
 })
+
+
 module.exports = router;

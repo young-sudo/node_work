@@ -52,20 +52,21 @@
                         <td><input type="text" class="del_button" ind="<%=i %>" value="删除"></td>
                     </tr>
                     <% }) %>
-                    <!-- <tfoot style="text-align: center; font-size: medium;">
+                    <tfoot style="text-align: center; font-size: medium;">
                         <tr>  
-                            <td colspan="5"></td>
-                            <td>首页</td>
-                            <td>上一页</td>
-                            <td>n</td>
-                            <td>下一页</td>
-                            <td>尾页</td>
-                            <td colspan="3"></td>
+                            <td colspan="5" class="page_num" page= "<%= page %>"></td>
+                            <td class="paging">首页</td>
+                            <td class="paging">上一页</td>
+                            <td class="paging page_p">1</td>
+                            <td class="paging">下一页</td>
+                            <td class="paging">尾页</td>
+                            <td colspan="3" style="text-align: right; font-size: small;color: red" class="page_text">共<%= page %>页</td>
                         </tr>
-                    </tfoot> -->
+                    </tfoot>
             </tbody>
         </table>
         <div class="touxiang" onclick="display()"></div>
+        <span style="position: absolute;top: -65px;">管理员 <%= key.user %></span>
         <div class="gongneng">
             <p onclick="details()">用户详情</p>
             <p onclick="but_return()">退出登陆</p>
