@@ -10,8 +10,10 @@ $(document).ready(function () {
     $(".float")[0].children[2].innerHTML = '老师';
     $(".float")[0].children[3].innerHTML = '管理员';
     $(".float")[0].children[4].innerHTML = '添加成员';
-
+    //管理员权限 不允许动其它管理员的数据
+    quanxian(true);
 })
+
 //颜色
 function float(a) {
     a.parentNode.children[0].style.background = 'none';
@@ -81,6 +83,7 @@ $(function () {
                 del();
                 change();
                 repir_page(data);
+                quanxian(true);
             }
         })
         $('.page_p')[0].innerHTML = 1;
@@ -137,12 +140,36 @@ function display() {
     }
 }
 function but_return() {
-    window.location.href = '/login';
+    var r = confirm("确认退出登陆？");
+    if (r == true) {
+        $.get('/magager/logout', function (data) {
+            window.location.href = data;
+        });
+        return true;
+    } else {
+        return false;
+    }
 
 }
 function details() {
     window.location.href = '/details';
 }
+//临时权限
+function but_quanxian(){
+    // alert(1)
+    let r =confirm('是否获取修改能其它管理员的权限');
+    if(r){
+        quanxian(false);
+        alert('成功，有效时间1分钟');
+        setTimeout(function(){
+            quanxian(true);
+        },60000);
+        display();
+    }else{
+        display();
+    }
+}
+
 //修改页面的内容并同步到mysql
 function change() {
     var table = $('.showData')[0];
@@ -224,6 +251,28 @@ function change() {
         }
     }
 
+}
+function quanxian(trueORfalse) {
+    var table = $('.showData')[0];
+    var rows = table.rows;//获取所有行
+    var ident = $('#ident_span')[0].children[0].innerHTML;    //当前管理员
+    // console.log("lenth", rows.length, ident)
+
+    for (var i = 0; i < rows.length; i++) {
+        var row = rows[i];//获取每一行
+        // 在循环中找出管理员
+        if (row.children[8].children[0].value === '管理员') {
+            if (row.children[5].children[0].value != ident) {  //其它管理员
+                var long = row.children.length;
+                for (var a = 0; a < long; a++) {
+                    //    console.log($(row.children[a].children[0]))
+                    $(row.children[a].children[0]).attr('disabled', trueORfalse);      //设置为禁止操作
+                }
+            } else {
+                $(row.children[12].children[0]).attr('disabled', 'true');        // 自己不能删除自己
+            }
+        }
+    }
 }
 //md5转换
 $(document).ready(function () {
