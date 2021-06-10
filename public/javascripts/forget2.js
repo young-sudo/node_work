@@ -1,14 +1,14 @@
 $(document).ready(function () {
     $('#hx_div1')[0].style.backgroundColor = 'green';
-    var c_phone = false;
+    var c_Email = false;
 
-    var phone = $('.inp_phone')
-    phone.blur(function () {
-        c_phone = check_phone(this)
+    var email = $('.inp_Email');
+    email.blur(function () {
+        c_Email = check_Email()
     })
-    function check_phone(i) {
+    function check_Email() {
         var flag = true;
-        if (!/^[1][3,4,5,7,8][0-9]{9}$/.test(phone.val())) {
+        if (!/^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(email.val())) {
             flag = false;
         }
         return flag;
@@ -16,19 +16,40 @@ $(document).ready(function () {
 
 
     $('#but_pass').click(function () {
-        var phone = $('.inp_phone').val();
-        if (phone != '') {
-            if (c_phone) {
-                $('#p_pass')[0].innerHTML = code();
-                $('#but_pass')[0].value = '10秒后消失';
-                setTimeout(function () {
-                    $('#p_pass')[0].innerHTML = '&nbsp;';
-                    $('#but_pass')[0].value = '重新获取';
-                }, 10000)
+        // console.log(c_Email)
+        let Email = email.val();
+        if (email != '') {
+            if (c_Email) {
+                c_Email = false;
+                $.get('/forget/check2_email', { data: Email }, (data) => {
+                    if (data === '0') {
+                        c_Email = true;
+                        $('#p_pass')[0].innerHTML = '请在邮箱中查看';
+                        let t = 60;
+                        let time = setInterval(frame, 1000);
+                        function frame() {
+                            if (t <= 0) {
+                                clearInterval(time);
+                                $('#p_pass')[0].innerHTML = '&nbsp;';
+                                $('#but_pass')[0].value = '重新获取';
+                                c_Email = false;
+                            } else {
+                                $('#but_pass')[0].value = t + '秒后消失';
+                                t--;
+                            }
+                        }
+                    } else {
+                        $('#span')[0].innerHTML = '没有该邮箱或邮箱填写错误。';
+                        setTimeout(function () {
+                            email.val('');
+                            $('#span')[0].innerHTML = '';
+                        }, 2000);
+                    }
+                })
             } else {
-                $('#span')[0].innerHTML = '电话号码格式错误。'
+                $('#span')[0].innerHTML = '邮箱格式错误。'
                 setTimeout(function () {
-                    $('.inp_phone').val('');
+                    email.val('');
                     $('#span')[0].innerHTML = '';
                 }, 2000)
             }
@@ -38,32 +59,23 @@ $(document).ready(function () {
         window.history.back();
     })
     $('#but_sub').click(function () {
-        var phone = $('.inp_phone').val();
-        var pass = $('#inp_pass').val();
-        if (phone != '') {
-            if ($('#p_pass')[0].innerHTML == pass) {
-                // console.log(user)
-                $.ajax({
-                    type: 'get',
-                    url: '/forget/check2',
-                    data: { ind: phone },
-                    success: function (data) {
-                        forget_next(data)
-                    }
+        let _email = $('.inp_Email').val();
+        let _pass = $('#inp_pass').val();
+        console.log(_email, _pass)
+        if (_email != '' && _pass != '') {
+            if (c_Email) {
+                $.get('/forget/check2_sub', { Email: _email, Pass: _pass }, (data) => {
+                    forget_next(data)
                 })
-            } else {
-                alert('验证码错误')
             }
-        } else {
-            alert('请填写电话号码')
         }
-
     })
+
     function forget_next(a) {
         if (a != '-1') {
             $('#but_next')[0].style = 'block';
         } else {
-            alert('电话号码错误')
+            alert('请检查邮箱和验证码')
         }
     }
     //下一步
@@ -71,13 +83,3 @@ $(document).ready(function () {
         window.location.href = '/forget/third';
     })
 })
-
-//随机六位数
-function code() {
-    var code = "";
-    for (var i = 0; i < 6; i++) {
-        var radom = Math.floor(Math.random() * 10);
-        code += radom;
-    }
-    return code;
-}

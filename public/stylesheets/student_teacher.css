@@ -26,7 +26,7 @@
     width: 90px;
     height: 90px;
     border-radius: 50%;
-    position: absolute;
+    position: relative;
     left: 20px;
     top: 35px;
 }
@@ -55,8 +55,8 @@
     display: none;
 }
 .set_div{
-    position: absolute;
-    top: 94%;
+    position: relative;
+    top: 60px;
     left: 80%;
 }
 .right_div{
@@ -71,7 +71,7 @@
     background-size: 100% 100%;
 }
 #right_top_div{
-    position: absolute;
+    position: relative;
     width: 100%;
     height: 50px;
     /* background-color: rgba(24, 146, 228, 0.603); */
@@ -91,7 +91,7 @@
 .right_div .table{
     position: relative;
     left: 0px;
-    top: 50px;
+    top: 8px;
 }
 .settype_div{
     font-size: 18px;
@@ -140,4 +140,42 @@
 }
 img{
     margin: -4px;
+}
+.errGrade_div{
+    width: 450px;
+    height: 225px;
+    background-color: white;
+    position: absolute;
+    left: 40%;
+    top: 200px;
+    border-radius: 10%;
+    display: none;
+}
+.err_top_div{
+    width: 100%;
+    height: 50px;
+    background-color: green;
+    font-size: 30px;
+    color:blue;
+}
+.err_bottom_div{
+    font-size: 16px;
+}
+.err_bottom_div>input:focus{
+    background-color: rgb(223, 223, 240);
+}
+.err_bottom_div>input:hover{
+    border:1px solid red;
+    background-color: rgb(223, 223, 240);
+}
+.err_bottom_div>textarea:focus{
+    background-color: rgb(223, 223, 240);
+}
+.err_bottom_div>p{
+    text-align: center;
+}
+.img_cc_div{
+    position: absolute;
+    top: 0px;
+    left: 433px;
 }

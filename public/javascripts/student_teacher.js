@@ -1,13 +1,12 @@
 $(document).ready(function () {
-    var _user = $('#user')[0].innerHTML;
-    var _identity = $('#identity')[0].innerHTML;
+    var _user = $('#user')[0].innerText;
+    var _identity = $('#identity')[0].innerText;
     if (_identity == '学生') {
         _identity = 'student';
     } else {
         _identity = 'teacher';
         $('.tea_search_stu')[0].style.display = 'block';
     };
-
     $('.img_qq').click(function () {
         if ($('.img_qq_big')[0].style.display == "block") {
             $('.img_qq_big')[0].style.display = "none"
@@ -28,7 +27,6 @@ $(document).ready(function () {
     })
     $('.left_type').each(function () {
         $(this).click(function () {
-            // console.log($(this)[0].childNodes[0].data)
             var value_ = $(this)[0].childNodes[0].data;
             if (value_ == '账号详情') {
                 window.location.href = '/details';
@@ -55,32 +53,54 @@ $(document).ready(function () {
                         type: value_
                     },
                     function (data, status) {
-                        //    console.log(data,status)
                         arr = data;
                         update();
                     });
             }
         })
     })
+    //teacher
     $('#addgrade_but').click(function () {
         //    window.open('/grade','newwindow','scrollbars=no,toolbar=no,resizable=no,status=no,width=500,height=500')
-        $.ajax({
-            type: 'get',
-            url: '/grade',
-            success: function () {
-                window.location.href = '/grade';
-            }
-        })
+        window.location.href = '/grade';
     })
     $('#change_grade_but').click(function () {
         window.location.href = '/grade/change_grade';
+    })
+    $('#select_but').click(function () {
+        $.get('/grade/select', (data) => {
+            arr = data;
+            update();
+        })
+    })
+    $('#select_all').click(function () {
+        $.get('/grade/selectAll', (data) => {
+            arr = data;
+            update();
+        })
     })
     //点击按钮查询
     $('#img').click(function () {
         search();
     })
-
 })
+//student
+function errGrade() {
+//    console.log( $('.set_student_div'))
+   $('.set_student_div')[0].style.display = 'none';
+   $('.errGrade_div')[0].style.display = 'block';
+}
+function chacha() {  //隐藏发送邮件的div
+    $('.errGrade_div')[0].style.display = 'none';
+}
+function downGrade() {    //学生分数小于60
+    let _user = $('#user')[0].innerText;
+    $.get('/student/fail',{user:_user},(data)=>{
+        arr = data;
+        update()
+    })
+}
+
 
 function islogout() {
     var r = confirm("确认注销账号？");
@@ -149,4 +169,11 @@ function search() {
         }, 1000)
     }
 
+}
+//student Email
+function check(){
+    if($('#s_email').val() != '' && $('#s_text').val() != '') {
+        return true;
+    }
+    return false;
 }

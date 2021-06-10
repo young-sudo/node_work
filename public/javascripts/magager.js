@@ -108,7 +108,7 @@ function update() {
     <td><input type="text" value="${i.age}"></td>
     <td><input type="text" value="${i.user}"></td>
     <td><input type="text" value="${i.password}"></td>
-    <td><input type="text" value="${i.phonenumber}"></td>
+    <td><input type="text" value="${i.Email}"></td>
     <td><input type="text" value="${i.identity}"></td>
     <td><input type="text" value="${i.islogout}"></td>
     <td><input type="text" value="${i.create_time}" style="width: 150px;"></td>
@@ -170,6 +170,151 @@ function but_quanxian(){
     }
 }
 
+//md5转换
+$(document).ready(function () {
+    $(".flip").click(function () {
+        $(".panel").slideToggle("slow");
+    });
+    $('#before_pass').blur(function () {
+        $.post('/magager/password', { data: $(this).val() }, (data) => {
+            $("#after_pass").val(data)
+        })
+    })
+
+});
+
+$(document).ready(function () {
+    var n = 1; //第几页
+
+    //sort排序 
+    $('.asc_desc').each(function () {
+        var i = 0;
+        $(this).click(function () {
+            // console.log(New_identity)   // 解决了双Ajax请求数据冲突，即选择身份后的排序失去身份前提
+            // console.log(i);   // 点击不同列的i不相同
+            i++;
+            let type = $(this)[0].innerHTML;
+            var identity = New_identity;
+            sort(i, type, identity);
+
+            $('.page_p')[0].innerHTML = 1;          //刷新页码,并刷新页数n
+            n = 1;
+        })
+    })
+    //分页   凡是重新请求数据，页码都需要刷新。即选择身份与排序时将n =1，page = 1；
+    $('.paging').each(function () {          //5 td
+        $(this).click(function () {
+            var page = +$('.page_num').attr('page');   //页码
+            // console.log('页码', page);
+            let text = $(this)[0].innerHTML;
+            if (text == '首页') {
+                n = 1;
+            } else if (text == '尾页') {
+                n = page;
+            } else if (text == '上一页') {
+                n = n - 1;
+            } else if (text == '下一页') {
+                n = n + 1;
+            } else {
+                n = parseInt(text)
+            }
+
+            if (n < 1) {
+                n = 1;
+                alert('已经是第一页了');
+            } else if (n > page) {
+                n = page;
+                alert('已经是最后一页了');
+            } else {
+                $.post('/magager/paging', { page: n, identity: New_identity }, (data) => {
+                    arr = data;
+                    update();
+                    del();
+                    change();
+
+                })
+            }
+            $('.page_p')[0].innerHTML = n;
+        })
+    })
+
+})
+//search
+$(document).ready(function () {
+    var searchInp = $('#search')[0];
+    var timer = null;
+
+    searchInp.oninput = function () {
+        clearTimeout(timer);
+        var keys = $(this).val();
+        // console.log(keys)
+
+        if (keys != '') {
+            timer = setTimeout(function () {
+                $.ajax({
+                    type: 'post',
+                    url: '/magager/search',
+                    data: {
+                        key: keys
+                    },
+                    success: function (data) {
+                        if (data == 'null') {
+                            $('.table')[0].innerHTML = '<p style="text-align: center;color: red;font-size: 100px;line-height:489px">没有数据</p>'
+                            searchInp.onblur = setTimeout(function () {
+                                window.location.href = '/magager'
+                            }, 1000)
+                        } else {
+                            arr = data;
+                            update();
+                            del();
+                            change();
+                            quanxian(true);
+                            // console.log(data);
+                            //修改html
+                            $('.page_num').attr('page', 1);
+                            $('.page_text')[0].innerHTML = "共" + 1 + "页";
+                        }
+                    },
+                    //异常处理
+                    error: function (e) {
+                        console.log(e);
+                    }
+                })
+            }, 1000)
+
+        }
+    }
+
+})
+function sort(i, ty, identity) {     //h 排序方式  ty 排序类型 id,age createtime
+    if (i % 2 != 0) {  //奇数 降序 sort
+        h = 'DESC';
+    } else {
+        h = 'ASC';
+    }
+    //由于前端页面 需将createTime，logoutTime 转换成create_time,logout_time
+    if (ty == 'createTime') {
+        ty = 'create_time';
+    } else if (ty == 'logoutTime') {
+        ty = 'logout_time';
+    } else {
+        ty = ty;
+    }
+    $.get('/magager/desc', { sort: h, type: ty, identity: identity }, (data) => {
+        arr = data
+        update();
+        del();
+        change();
+        quanxian(true);
+    })
+}
+function repir_page(data) {
+    let page = parseInt((data.page[0].sum / 10)) + 1;
+    //修改html
+    $('.page_num').attr('page', page);
+    $('.page_text')[0].innerHTML = "共" + page + "页";
+}
+
 //修改页面的内容并同步到mysql
 function change() {
     var table = $('.showData')[0];
@@ -214,7 +359,7 @@ function change() {
                 } else if (c_index == 6) {
                     c_index = 'password';
                 } else if (c_index == 7) {
-                    c_index = 'phonenumber';
+                    c_index = 'Email';
                 } else if (c_index == 8) {
                     c_index = 'identity';
                 } else if (c_index == 9) {
@@ -252,6 +397,7 @@ function change() {
     }
 
 }
+//权限
 function quanxian(trueORfalse) {
     var table = $('.showData')[0];
     var rows = table.rows;//获取所有行
@@ -273,101 +419,4 @@ function quanxian(trueORfalse) {
             }
         }
     }
-}
-//md5转换
-$(document).ready(function () {
-    $(".flip").click(function () {
-        $(".panel").slideToggle("slow");
-    });
-    $('#before_pass').blur(function () {
-        $.post('/magager/password', { data: $(this).val() }, (data) => {
-            $("#after_pass").val(data)
-        })
-    })
-
-});
-
-$(document).ready(function () {
-    var n = 1; //第几页
-
-    //sort排序 
-    $('.asc_desc').each(function () {
-        var i = 0;
-        $(this).click(function () {
-            // console.log(New_identity)   // 解决了双Ajax请求数据冲突，即选择身份后的排序失去身份前提
-            // console.log(i);   // 点击不同列的i不相同
-            i++;
-            let type = $(this)[0].innerHTML;
-            var identity = New_identity;
-            sort(i, type, identity);
-
-            $('.page_p')[0].innerHTML = 1;          //刷新页码,并刷新页数n
-            n = 1;
-        })
-    })
-    //分页   凡是重新请求数据，页码都需要刷新。即选择身份与排序时将n =1，page = 1；
-    $('.paging').each(function () {          //5 td
-        $(this).click(function () {
-            var page = +$('.page_num').attr('page');   //页码
-            console.log('页码', page);
-            let text = $(this)[0].innerHTML;
-            if (text == '首页') {
-                n = 1;
-            } else if (text == '尾页') {
-                n = page;
-            } else if (text == '上一页') {
-                n = n - 1;
-            } else if (text == '下一页') {
-                n = n + 1;
-            } else {
-                n = parseInt(text)
-            }
-
-            if (n < 1) {
-                n = 1;
-                alert('已经是第一页了');
-            } else if (n > page) {
-                n = page;
-                alert('已经是最后一页了');
-            } else {
-                $.post('/magager/paging', { page: n, identity: New_identity }, (data) => {
-                    arr = data;
-                    update();
-                    del();
-                    change();
-
-                })
-            }
-            $('.page_p')[0].innerHTML = n;
-        })
-    })
-
-})
-
-function sort(i, ty, identity) {     //h 排序方式  ty 排序类型 id,age createtime
-    if (i % 2 != 0) {  //奇数 降序 sort
-        h = 'DESC';
-    } else {
-        h = 'ASC';
-    }
-    //由于前端页面 需将createTime，logoutTime 转换成create_time,logout_time
-    if (ty == 'createTime') {
-        ty = 'create_time';
-    } else if (ty == 'logoutTime') {
-        ty = 'logout_time';
-    } else {
-        ty = ty;
-    }
-    $.get('/magager/desc', { sort: h, type: ty, identity: identity }, (data) => {
-        arr = data
-        update();
-        del();
-        change();
-    })
-}
-function repir_page(data) {
-    let page = parseInt((data.page[0].sum / 10)) + 1;
-    //修改html
-    $('.page_num').attr('page', page);
-    $('.page_text')[0].innerHTML = "共" + page + "页";
 }

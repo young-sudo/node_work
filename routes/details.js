@@ -27,8 +27,8 @@ router.get('/', (req, res) => {
 router.post('/', (req, res) => {
     // console.log(req.body)
     var password =  md5( req.body.password);
-    var sql = "UPDATE member set number =?,name = ?,sex = ?,age =?,user =?,password =?,phonenumber =?,identity =? WHERE id = ?"
-    connection.query(sql,[req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user, password, req.body.phonenumber, req.body.identity, req.body.id], function (err, results, fields) {
+    var sql = "UPDATE member set number =?,name = ?,sex = ?,age =?,user =?,password =?,Email =?,identity =? WHERE id = ?"
+    connection.query(sql,[req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user, password, req.body.Email, req.body.identity, req.body.id], function (err, rows) {
         if(err != null) {
             res.render('error',{text:err})
         }else{

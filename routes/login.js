@@ -11,13 +11,26 @@ router.get('/', function (req, res, next) {
 });
 
 //登录
+var loginCount = 1;      // 登陆次数在五次以内
+router.post('/',(req,res,next) =>{
+      if(loginCount <= 5){
+            console.log(loginCount);
+            next();
+      }else{
+            setTimeout(() => {
+                  loginCount = 0;
+            }, 5*60*1000);
+            res.render('error',{text:'请在5分钟后再尝试'});
+      }
+})
 router.post('/', (req, res) => {
       var password = md5(req.body.password);
-      connection.query('SELECT name,identity,islogout FROM member where user =? && password =? GROUP BY id', [req.body.user, password], function (err, results, fields) {
+      connection.query('SELECT name,identity,islogout FROM member where user =? && password =?', [req.body.user, password], function (err, results, fields) {
             if(err){
                   res.render('error', { text: 'watching' })
             }
             if (results[0] == null) {
+                  loginCount = loginCount + 1;       // 登陆次数+1
                   res.render('error', { text: '密码错误' })
             } else {
                   if (results[0].islogout == 'yes') {

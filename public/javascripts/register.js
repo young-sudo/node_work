@@ -9,7 +9,7 @@ $(document).ready(function () {
     var btn = $('#btn_submit');
     btn.click(function () {
         var identity = $('.identity')[0].value;
-        if (check_number && check_name && check_sex && check_age && check_user && check_password && check_repassword && check_phonenumber) {
+        if (check_number && check_name && check_sex && check_age && check_user && check_password && check_repassword && check_Email) {
             $.ajax({
                 type: 'post',
                 url: '/register',
@@ -20,7 +20,7 @@ $(document).ready(function () {
                     age: inp_age.value,
                     user: inp_user.value,
                     password: inp_password.value,
-                    phonenumber: inp_phonenumber.value,
+                    Email: inp_Email.value,
                     identity: identity
                 },
                 success: function (data) {
@@ -54,8 +54,8 @@ $(document).ready(function () {
             if(!check_repassword){
                 alert('密码不匹配')
             }
-            if(!check_phonenumber){
-                alert('请检查你的phonenumber')
+            if(!check_Email){
+                alert('请检查你的Email')
             }
         }
     })
@@ -67,7 +67,7 @@ $(document).ready(function () {
     var inp_user = $('input')[4];
     var inp_password = $('input')[5];
     var inp_repassword = $('input')[6];
-    var inp_phonenumber = $('input')[7];
+    var inp_Email = $('input')[7];
 
     var check_number = false;
     var check_name = false;
@@ -76,7 +76,7 @@ $(document).ready(function () {
     var check_user = false;
     var check_password = false;
     var check_repassword = false;
-    var check_phonenumber = false;
+    var check_Email = false;
 
 
     //number
@@ -110,8 +110,8 @@ $(document).ready(function () {
         check_repassword = repassword(this, inp_password);
     }
     //phonenumber
-    inp_phonenumber.onblur = function () {
-        check_phonenumber = phonenumber(this);
+    inp_Email.onblur = function () {
+        check_Email = Email(this);
     }
 })
 //////////////////////////////////////////
@@ -281,15 +281,15 @@ function repassword(i, inp_password) {
     }
     return flag;
 }
-function phonenumber(i) {
-    var phonenum = i.value;
+function Email(i) {
+    var Emailnum = i.value;
     var text = i.parentNode.parentNode.children[2];
     text.style.color = 'green';
     text.innerHTML = 'success';
     var flag = true;
-    if (! /^[1][3,4,5,7,8][0-9]{9}$/.test(phonenum)) {
+    if (! /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/.test(Emailnum)) {
         text.style.color = 'red';
-        text.innerHTML = '以1为开头,第二位可为3,4,5,7,8;11位，当前为' + phonenum.length + '位';
+        text.innerHTML = '邮箱格式错误';
         flag = false;
     }
     return flag;

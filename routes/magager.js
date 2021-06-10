@@ -99,12 +99,10 @@ router.post('/search', (req, res) => {
     var sql = " SELECT * FROM member where user like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where name like " + connection.escape('%' + search_inp + '%')
         + " UNION SELECT * from member where number like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where sex like " + connection.escape('%' + search_inp + '%')
         + " UNION SELECT * from member where identity like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where islogout like " + connection.escape('%' + search_inp + '%')
-        ;
+        + " UNION SELECT * from member where Email like " + connection.escape('%' + search_inp + '%');
 
     connection.query(sql, function (err, rows) {
-        if (err) {
-            throw err;
-        }
+        if (err) { throw err;}
         format(rows);
         if (rows[0] == null) {
             res.send('null');
@@ -158,7 +156,7 @@ router.get('/desc', (req, res) => {
         var sql = 'select * from member ORDER BY ' + type + ' ' + sort + ' limit 0,10';
     }
     connection.query(sql, (err, rows) => {
-        if (err != null) { throw err }
+        if (err) { throw err }
         format(rows);
         res.send(rows);
     })

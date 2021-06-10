@@ -23,31 +23,29 @@ router.all('/', (req, res, next) => {
    }
 })
 
-router.get('/', function (req, res, next) {
-   connection.query('select * from v_student where name = ?', [req.session.user.name], function (err, results, fields) {
+router.get('/', function (req, res) {
+   connection.query('select studentNumber,name,sex,score,exam,type from v_score where name = ?', [req.session.user.name], function (err, rows) {
       req.session.user.title = req.session.user.name;
-      if (err != null) {
-         res.render('error', { text: err })
-      }
+      if (err) {throw err};
       res.render("student_teacher", {
-         list: results,
+         list: rows,
          key: req.session.user
       })
    })
 
 });
 
-router.post('/exam', function (req, res, next) {
-   // console.log(req.body);
-   // console.log(req.body.type);
-   connection.query("select * from v_student where user = ? && exam = ? ", [req.body.user, req.body.type], function (err, results, fields) {
-      // console.log(results)
-      if (err != null) {
-         res.render("error", { text: err })
-      }
-      res.send(results);
+router.post('/exam', function (req, res) {
+   connection.query("select name,sex,number,score,exam,type from v_student where user = ? && exam = ? ", [req.body.user, req.body.type], function (err, rows) {
+      if (err) {throw err}
+      res.send(rows);
    })
 });
-
+router.get('/fail', function (req, res) {
+   connection.query("select name,sex,number,score,exam,type from v_student where user = ? && score <60", [req.query.user], function (err, rows) {
+      if (err) {throw err}
+      res.send(rows);
+   })
+});
 
 module.exports = router;

@@ -1,23 +1,22 @@
 var express = require('express');
 var router = express.Router();
 var connection = require('./bean/mysql');
+const sendEmail = require('./bean/sendEmail.js');
 
 router.get('/', (req, res) => {
-    var title = { title: '添加' };
+    var title = { title: '添加成绩' };
     res.render('grade', { key: title });
 })
 
 router.get('/change_grade', (req, res) => {
-    var title = { title: '修改' };
+    var title = { title: '修改成绩' };
     res.render('grade', { key: title });
 })
 
 router.get('/name', (req, res) => {
     var sql = 'select * from member where name = ' + connection.escape(req.query.data);
     connection.query(sql, (err, rows) => {
-        if (err != null) {
-            throw err;
-        };
+        if (err) {throw err;};
         if (rows[0] != undefined) {
             if (rows[0].identity != '学生') {
                 res.send('-1');
@@ -46,7 +45,7 @@ router.get('/number', (req, res) => {
 
 
 router.post('/addgrade', (req, res) => {
-    // console.log(req.body);
+    console.log(req.body);
     var number = req.body.number;
     var name = req.body.name;
     var sex = req.body.sex;
@@ -56,52 +55,29 @@ router.post('/addgrade', (req, res) => {
     //1，先查看数据是否匹配；2，获取学生id；3，获取学生course_id；4，获取学生exam_id；5，组合，并输入数据库.
     var sql = 'select * from member where number = ' + connection.escape(number) + '&&' + 'name =' + connection.escape(name) + '&&' + 'sex = ' + connection.escape(sex);
     connection.query(sql, (err, rows) => {
-        if (err != null) {
-            throw err;
-        }
+        if (err) { throw err;}
         if (rows[0] != undefined) {
-            //视图不能该一个基础表以上的数据
-            // var user = rows[0].user;
-            // var age = rows[0].age;
-            // var phonenumber = rows[0].phonenumber;
-            // var identity = rows[0].identity;
-            // var sql = "INSERT INTO v_student (name,score,exam,type,number,age,sex,user,phonenumber,identity) VALUES(?,?,?,?,?,?,?,?,?,?)";
-            // connection.query(sql,[name,score,exam,type,number,age,sex,user,phonenumber,identity],(err,rows) =>{
-            //    console.log(err);
-            //    console.log(rows)
-            // })
             var id = rows[0].id;
             var course_id;
             var exam_id;
             var sql_c = "select id from course where type=" + connection.escape(type);
             connection.query(sql_c, (err, rows) => {
-                if (err != null) {
-                    throw err;
-                }
+                if (err) {throw err;}
                 course_id = rows[0].id;
                 var sql_e = "select id from exam where type=" + connection.escape(exam);
                 connection.query(sql_e, (err, rows) => {
-                    if (err != null) {
-                        throw err;
-                    }
+                    if (err) {throw err;}
                     exam_id = rows[0].id;
-                    // console.log(id);     //学生id
-                    // console.log(course_id);     //学生course_id
-                    // console.log(exam_id)     //学生exam_id
-                    // score     //学生成绩
                     //score表中添加数据
                     score = parseInt(score);
                     var sql_s = "INSERT INTO score(member_id,score,course_id,exam_id) VALUES(?,?,?,?)";
                     connection.query(sql_s, [id, score, course_id, exam_id], (err, rows) => {
-                        if (err != null) {
-                            throw err;
-                        }
+                        if (err) {throw err;}
                         res.send('success')
                     })
                 })
             })
         } else {
-            // console.log(rows);       //[]
             res.send('学生信息错误，请重新填写')
         }
     })
@@ -116,12 +92,8 @@ router.post('/change_grade', (req, res) => {
     //1，先查看学生数据是否匹配；
     var sql = 'select * from member where number = ' + connection.escape(number) + '&&' + 'name =' + connection.escape(name) + '&&' + 'sex = ' + connection.escape(sex);
     connection.query(sql, (err, rows) => {
-        if (err != null) {
-            throw err;
-        }
+        if (err) {throw err};
         if (rows[0] != undefined) {
-            // console.log(rows)
-            // console.log(rows[0].id)
             //2,在查看学生考试信息是否正确
             if (rows[0].identity == '学生') {
                 var sql = "select * from v_student where user = " + connection.escape(rows[0].user)
@@ -150,5 +122,61 @@ router.post('/change_grade', (req, res) => {
         }
 
     })
+})
+
+router.get('/select',(req,res) => {
+    let sql = 'select name,sex,score,exam,studentNumber number,type from v_score where teacherName = ? && score < 60';
+    connection.query(sql,[req.session.user.name],(err,rows) => {
+        if(err) {throw err};
+        res.send(rows)
+    })
+})
+router.get('/selectAll',(req,res) => {
+    let sql = 'select name,sex,score,exam,studentNumber number,type from v_score ';
+    connection.query(sql,(err,rows) => {
+        if(err) {throw err};
+        res.send(rows)
+    })
+})
+
+//student 
+router.post('/errGrade',(req,res) => {
+    // console.log(req.body);
+    connection.query('select * from v_stu_tea where studentUser = ?',[req.body.user],(err,rows) =>{
+        if(err){throw err};
+        // console.log(rows);
+        let user = rows[0].teacherUser;
+        let sql = 'select * from member where Email = ? && user = ?';
+        connection.query(sql,[req.body.email,user],(err,rows) => {
+            if(err){throw err};
+            // console.log(rows);
+            if(rows[0] == undefined){
+                res.send('老师邮箱错误')
+            }else{
+                connection.query('select Email from member where user = ?',[req.body.user],(err,rows) => {
+                    if(err){throw err};
+                    // console.log(rows);
+                    let studentEmail = rows[0].Email;
+                    let email = {
+                        title: '成绩错误，请求复查',
+                        body: `
+                <h1>${user}老师，您好：</h1>
+                <p style="font-size: 18px;color:#000;">
+                    <span style="font-size: 16px;color:#f00;"> ${req.body.text} </span>  
+                </p>
+                `
+                    }
+                    let emailCotent = {
+                        from: studentEmail, // 发件人地址
+                        to: req.body.email, // 收件人地址，多个收件人可以使用逗号分隔
+                        subject: email.title, // 邮件标题
+                        html: email.body // 邮件内容
+                    };
+                    sendEmail.send(emailCotent);
+                    res.send('0');
+                })               
+            }
+        })
+    })        
 })
 module.exports = router;

@@ -24,15 +24,15 @@ router.all('/', (req, res, next) => {
 })
 
 router.get('/', function (req, res, next) {
-   connection.query('select * from v_student ', function (err, results, fields) {
+   let sql ='SELECT t.studentNumber,s.name,s.sex,s.score,s.exam,s.type,t.teacherNumber,t.teacherName from v_student s INNER JOIN v_stu_tea t on s.user = t.studentUser where t.teacherName = ?'
+   connection.query(sql,[req.session.user.name], function (err,rows) {
       // 在user中添加一行数据
-      req.session.user.title = req.session.user.name + '的全部学生';
-      // console.log(req.session.user)
-      if (err != null) {
-         res.render('error', { text: err })
-      }
+      req.session.user.title = req.session.user.name + '的所有学生';
+      //  console.log(req.session.user)
+      if (err) { throw err};
+      // console.log(rows)
       res.render("student_teacher", {
-         list: results,
+         list: rows,
          key: req.session.user
       })
    })
@@ -42,12 +42,11 @@ router.get('/', function (req, res, next) {
 router.post('/exam', function (req, res, next) {
    // console.log(req.body);
    // console.log(req.body.type);
-   connection.query("select * from v_student where exam = ? ", [req.body.type], function (err, results, fields) {
+   let sql = "select name,sex,score,exam,studentNumber number,type from v_score where exam = ? && teacherName = ?"
+   connection.query(sql, [req.body.type,req.session.user.name], function (err, rows) {
       // console.log(results)
-      if (err != null) {
-         res.render("error", { text: err })
-      }
-      res.send(results);
+      if (err) {throw err};
+      res.send(rows);
    })
 });
 router.get('/search',(req,res) => {
@@ -63,5 +62,4 @@ router.get('/search',(req,res) => {
      res.send(rows)
    })
 })
-
 module.exports = router;

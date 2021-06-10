@@ -16,8 +16,6 @@ function check() {
 
 
 }
-
-
 $(document).ready(function () {
       $('input')[0].onblur = function () {
             var user =$(this).val();

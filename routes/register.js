@@ -21,12 +21,12 @@ router.post('/', (req, res) => {
     //获取当前时间 并格式化
     var time = sd.format(new Date(), 'YYYY-MM-DD HH:mm:ss');
     var user = new User(req.body.number, req.body.name, req.body.sex, req.body.age, req.body.user,
-        req.body.password, req.body.phonenumber, req.body.identity, time);
+        req.body.password, req.body.Email, req.body.identity, time);
     //md5加密密码
     user.password = md5(user.password);
-    var sql = "INSERT INTO member(number,name,sex,age,user,password,phonenumber,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
+    var sql = "INSERT INTO member(number,name,sex,age,user,password,Email,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
     connection.query(sql,
-        [user.number, user.name, user.sex, user.age, user.user, user.password, user.phonenumber, user.identity, user.create_time], function (err, results, fields) {
+        [user.number, user.name, user.sex, user.age, user.user, user.password, user.Email, user.identity, user.create_time], function (err, results, fields) {
           if(err != null){
               throw err;
           }

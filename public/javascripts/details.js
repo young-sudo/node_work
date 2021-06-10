@@ -6,7 +6,7 @@ $(document).ready(function () {
     var inp_age = $('#body')[0].children[4].children[0].children[1];
     var inp_user = $('#body')[0].children[5].children[0].children[1];
     var inp_password = $('#body')[0].children[6].children[0].children[1];
-    var inp_phonenumber = $('#body')[0].children[7].children[0].children[1];
+    var inp_Email = $('#body')[0].children[7].children[0].children[1];
     var inp_identity = $('#body')[0].children[8].children[0].children[1];
     var inp_createTime = $('#body')[0].children[9].children[0].children[1];
 
@@ -90,13 +90,13 @@ $(document).ready(function () {
         }
     }
      //phonenumber
-     inp_phonenumber.onblur = function () {
-        var phonenumber = $(this).val();
-        if (phonenumber == '' || phonenumber == undefined || phonenumber == null) {
+     inp_Email.onblur = function () {
+        var Email = $(this).val();
+        var reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{2,4})$/;
+        if (Email == '' || Email == undefined || Email == null) {
             alert('请填写电话号码');
-        } else if (phonenumber.length<3 ||phonenumber.length >11) {
-            alert("电话号码只能在3-11位之间");
-            $(this).val('110');
+        } else if (!reg.test(Email)) {
+            alert("邮箱格式不正确");
         } else {
        
         }

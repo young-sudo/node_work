@@ -28,4 +28,11 @@ body{
     left: 801px;
     top: 0px;
 }
-   
+#but_before{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-color: greenyellow;
+    border:1px solid white;
+
+}

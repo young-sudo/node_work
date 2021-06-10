@@ -18,9 +18,10 @@ $(document).ready(function () {
             var exam_ = inp_arr[4];
             var type_ = inp_arr[5];
             var url;
-            if ($('h3')[0].innerHTML == '添加') {
+            // console.log($('h3')[0].innerHTML)
+            if ($('h3')[0].innerHTML == '添加成绩') {
                 url = '/grade/addgrade';
-            } else if ($('h3')[0].innerHTML == '修改') {
+            } else if ($('h3')[0].innerHTML == '修改成绩') {
                 url = '/grade/change_grade';
             }
             $.ajax({

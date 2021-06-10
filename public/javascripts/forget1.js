@@ -3,11 +3,18 @@ $(document).ready(function () {
         var user = $('#inp_user').val();
         if (user != '') {
             $('#p_pass')[0].innerHTML = code();
-            $('#but_pass')[0].value = '10秒后消失';
-            setTimeout(function () {
-                $('#p_pass')[0].innerHTML = '&nbsp;';
-                $('#but_pass')[0].value = '重新获取';
-            }, 10000)
+            let t = 10;
+            let time = setInterval(frame, 1000);
+            function frame() {
+                if (t <= 0) {
+                    clearInterval(time);
+                    $('#p_pass')[0].innerHTML = '&nbsp;';
+                    $('#but_pass')[0].value = '重新获取';
+                } else {
+                    $('#but_pass')[0].value = t+'秒后消失';
+                    t--;
+                }
+            }
         }
     })
     $('#but_sub').click(function () {
@@ -45,7 +52,6 @@ $(document).ready(function () {
     })
 
 })
-
 //随机六位数
 function code() {
     var code = "";

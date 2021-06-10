@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,14 +15,18 @@
     <div id="big_div">
         <div class="left_div">
             <div class="touxiang">
-                <div class="img_div" ></div>
-                <span>&nbsp;打卡 </span>
+                <div class="img_div"></div>
+                <span style="position: relative;top: -84px;left: 0px;">&nbsp;打卡 </span>
                 <div class="left_span">
-                    <span style="font-size: 25px;" id="user"><%=key.user %></span>
+                    <span style="font-size: 25px;" id="user">
+                        <%=key.user %>
+                    </span>
                     <div class="img_qq"><img src="/images/student1.png" width="40px" height="40px"></div>
                     <div class="img_qq_big"><img src="/images/student1.png" width="200px" height="200px"></div>
                     <br>
-                    <p id="identity"><%= key.identity %></p>
+                    <p id="identity">
+                        <%= key.identity %>
+                    </p>
                 </div>
             </div>
             <div>
@@ -53,13 +58,15 @@
                     <div class="settype_div">
                         <p onclick="login()">注册账号</p>
                         <p onclick="islogout()"> 注销账号</p>
-                       <p onclick="logout()">退出登陆</p>
-                     </div>
+                        <p onclick="logout()">退出登陆</p>
+                    </div>
                 </div>
             </div>
         </div>
           <div class="right_div">
-            <div id="right_top_div"><%= key.title %>的成绩 </div>
+            <div id="right_top_div">
+                <%= key.title %>的成绩
+            </div>
             <table class="table table-bordered">
                 <thead>
                     <tr>
@@ -73,54 +80,82 @@
                 </thead>
                 <tbody id="showData">
                     <% list.forEach ((o,i)=>{ %>
-                       <tr>
-                           <td><%= o.number %></td>
-                           <td><%= o.name %></td>
-                           <td><%= o.sex %></td>
-                           <td><%= o.type %></td>
-                           <td><%= o.score %></td>
-                           <td><%= o.exam %></td>
-                       </tr>
-                    <% }) %>
-                  
+                        <tr>
+                            <td>
+                                <%= o.studentNumber %>
+                            </td>
+                            <td>
+                                <%= o.name %>
+                            </td>
+                            <td>
+                                <%= o.sex %>
+                            </td>
+                            <td>
+                                <%= o.type %>
+                            </td>
+                            <td>
+                                <%= o.score %>
+                            </td>
+                            <td>
+                                <%= o.exam %>
+                            </td>
+                        </tr>
+                        <% }) %>
+
                 </tbody>
             </table>
         </div>
         <div class="set_teacher_div" id="set_teacher_div">
             <table class="table">
                 <tr>
-                    <td><button  id="addgrade_but" style="border: none;">添加学生成绩</button></td>
+                    <td><button id="addgrade_but" style="border: none;">添加学生成绩</button></td>
                 </tr>
                 <tr>
                     <td><button id="change_grade_but" style="border: none;">修改学生成绩</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('你没有权限')">删除学生成绩</button></td>
+                    <td><button id="select_but" style="border: none;">查看挂科学生</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('没有')">关于网站...</button></td>
+                    <td><button id="select_all" style="border: none;">查看所有学生</button></td>
                 </tr>
             </table>
         </div>
         <div class="set_student_div" id="set_student_div">
             <table class="table">
                 <tr>
-                    <td><button style="border: none;" onclick="alert('你没有权限')">成绩错误</button></td>
+                    <td><button style="border: none;" onclick="errGrade()">成绩错误</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('你没有权限')">修改成绩</button></td>
+                    <td><button style="border: none;" onclick="downGrade()">不及格成绩</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('你没有权限')">删除成绩</button></td>
+                    <td><button style="border: none;" onclick="alert('想啥呢？')">删除成绩</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('没有')">关于网站...</button></td>
+                    <td><button style="border: none;" onclick="alert('no')">关于网站...</button></td>
                 </tr>
             </table>
         </div>
         <div class="tea_search_stu" style="display: none;">
             <input type="search" id="search" />
             <img src="/images/magager1.gif" width="27px" id="img">
+        </div>
+        <div class="errGrade_div">
+            <div class="img_cc_div"><img src="/images/student_teacher.jpg" width="20px" onclick="chacha()"></div>
+            <form action="/grade/errGrade" method="POST" onsubmit="return check()">
+                <div class="err_top_div">
+                    <p style="text-align: center;"> Send Email </p>
+                </div>
+                <div class="err_bottom_div">
+                    <input type="hidden" value="<%=key.user %>" name="user">
+                    Send to teacher :<input type="email" id='s_email' name="email"
+                        style="width: 320px;height:30px; float: right;" />
+                    <textarea name="text" id='s_text' style="margin: 0px;width: 449px;height: 100px;resize:none;"
+                        maxlength="300" minlength="30" placeholder="请详细说明,字数不小于30，不大于300."></textarea>
+                    <p><input type="reset" />&nbsp;&nbsp;&nbsp;<input type="submit" id="but_errGrade" value="提交" /></p>
+                </div>
+            </form>
         </div>
     </div>
 </body>
