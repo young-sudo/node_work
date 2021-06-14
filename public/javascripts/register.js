@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //提示框字体
+     //提示框字体
     var arrSpan = $('span');
     for (var i = 0; i < arrSpan.length; i++) {
         arrSpan[i].style.color = 'red';
@@ -10,51 +10,66 @@ $(document).ready(function () {
     btn.click(function () {
         var identity = $('.identity')[0].value;
         if (check_number && check_name && check_sex && check_age && check_user && check_password && check_repassword && check_Email) {
-            $.ajax({
-                type: 'post',
-                url: '/register',
-                data: {
-                    number: inp_number.value,
-                    name: inp_name.value,
-                    sex: inp_sex.value,
-                    age: inp_age.value,
-                    user: inp_user.value,
-                    password: inp_password.value,
-                    Email: inp_Email.value,
-                    identity: identity
-                },
-                success: function (data) {
-                 if(data == 'err'){
-                     alert('error')
-                 }else{
-                     window.location.href= data;
-                 }
-                }
-            })
-
-        }else{
-            if(!check_number){
+            // 发送验证码
+            //显示验证码输入框
+            $('#auth_div')[0].style.display = 'block';
+            $('#auth_div h4')[0].innerText = '已发送，请在' + inp_Email.value + '邮箱中查看验证码。';
+            $.get('/register/auth', { email: inp_Email.value }, (data) => {
+                // 检查验证码是否正确
+                $('#but_auth').click(function(){
+                    let y = $('#inp_auth');
+                    setTimeout(function(){data= ''},60*60*1000) //1小时内有效
+                    if (y.val() === data) {
+                        $.ajax({         //提交数据库
+                            type: 'post',
+                            url: '/register',
+                            data: {
+                                number: inp_number.value,
+                                name: inp_name.value,
+                                sex: inp_sex.value,
+                                age: inp_age.value,
+                                user: inp_user.value,
+                                password: inp_password.value,
+                                Email: inp_Email.value,
+                                identity: identity
+                            },
+                            success: function (data) {
+                                if (data == 'err') {
+                                    alert('error')
+                                } else {
+                                    window.location.href = data;
+                                }
+                            }
+                        })
+                    } else {
+                        y.val('');
+                        alert('验证码错误。')
+                    }
+                 })
+            });
+        } else {
+            if (!check_number) {
                 alert('请检查你的number')
             }
-            if(!check_name){
+            if (!check_name) {
                 alert('请检查你的name')
             }
-            if(!check_sex){
+            if (!check_sex) {
                 alert('请检查你的sex')
             }
-            if(!check_age){
+            if (!check_age) {
                 alert('请检查你的age')
             }
-            if(!check_user){
+            if (!check_user) {
                 alert('请检查你的user')
             }
-            if(!check_password){
+            if (!check_password) {
                 alert('请检查你的password')
             }
-            if(!check_repassword){
+            if (!check_repassword) {
                 alert('密码不匹配')
             }
-            if(!check_Email){
+            if (!check_Email) {
                 alert('请检查你的Email')
             }
         }
@@ -109,7 +124,7 @@ $(document).ready(function () {
     inp_repassword.onblur = function () {
         check_repassword = repassword(this, inp_password);
     }
-    //phonenumber
+    //Email
     inp_Email.onblur = function () {
         check_Email = Email(this);
     }

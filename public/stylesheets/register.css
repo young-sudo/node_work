@@ -118,3 +118,16 @@ input:hover{
     border: 1px solid black;
     border-radius: 9px;
 }
+#auth_div{
+    width: 400px;
+    height: 150px;
+    background-color: blueviolet;
+    position: absolute;
+    top: 30%;
+    left: 40%;
+    text-align: center;
+    display: none;
+}
+#auth_div input{
+    width: 200px;
+}

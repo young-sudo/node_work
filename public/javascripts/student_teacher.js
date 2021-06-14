@@ -141,11 +141,18 @@ function update() {
         <td>${i.name}</td>
         <td>${i.sex}</td>
         <td>${i.type}</td>
-        <td>${i.score}</td>
+        <td>${score(i.score)}</td>
         <td>${i.exam}</td>
     </tr>
     `
     ).join('');
+    function score(i){
+        if(i<60){
+            return `<span style="color:red;">${i}</span>`
+        }else{
+            return `<span style="color:green;">${i}</span>`
+        }
+    }
 }
 //teacher
 function search() {
@@ -177,3 +184,46 @@ function check(){
     }
     return false;
 }
+
+
+// 分页
+$(document).ready(function(){
+    console.log($('.paging'));
+    var n=1;
+    $('.paging').each(function () {          //5 td
+        $(this).click(function () {
+            var page = +$('.page_num').attr('page');   //页码
+            // console.log('页码', page);
+            let text = $(this)[0].innerHTML;
+            if (text == '首页') {
+                n = 1;
+            } else if (text == '尾页') {
+                n = page;
+            } else if (text == '上一页') {
+                n = n - 1;
+            } else if (text == '下一页') {
+                n = n + 1;
+            } else {
+                n = parseInt(text)
+            }
+
+            if (n < 1) {
+                n = 1;
+                alert('已经是第一页了');
+            } else if (n > page) {
+                n = page;
+                alert('已经是最后一页了');
+            } else {
+                $.post('/magager/paging', { page: n, identity: New_identity }, (data) => {
+                    arr = data;
+                    update();
+                    del();
+                    change();
+
+                })
+            }
+            $('.page_p')[0].innerHTML = n;
+        })
+    })
+
+})

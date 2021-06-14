@@ -14,7 +14,7 @@ router.get('/', function (req, res, next) {
 var loginCount = 1;      // 登陆次数在五次以内
 router.post('/',(req,res,next) =>{
       if(loginCount <= 5){
-            console.log(loginCount);
+            // console.log(loginCount);
             next();
       }else{
             setTimeout(() => {

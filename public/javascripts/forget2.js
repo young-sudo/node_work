@@ -25,7 +25,7 @@ $(document).ready(function () {
                     if (data === '0') {
                         c_Email = true;
                         $('#p_pass')[0].innerHTML = '请在邮箱中查看';
-                        let t = 60;
+                        let t = 600;
                         let time = setInterval(frame, 1000);
                         function frame() {
                             if (t <= 0) {

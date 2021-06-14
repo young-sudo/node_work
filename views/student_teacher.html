@@ -94,7 +94,12 @@
                                 <%= o.type %>
                             </td>
                             <td>
-                                <%= o.score %>
+                               <% if (o.score < 60 ) { %>
+                                <span style="color: red;"><%= o.score %></span>
+                               <% } %>
+                               <% if (o.score >= 60 ) { %>
+                                <span style="color: green;"><%= o.score %></span>
+                               <% } %>
                             </td>
                             <td>
                                 <%= o.exam %>
@@ -103,6 +108,16 @@
                         <% }) %>
 
                 </tbody>
+                <tfoot style="text-align: center; font-size:xx-small;">
+                    <tr num='<%= page %>'>  
+                        <td class="paging">首页</td>
+                        <td class="paging">上一页</td>
+                        <td class="paging page_p">1</td>
+                        <td class="paging">下一页</td>
+                        <td class="paging">尾页</td>
+                        <td style="text-align: right; font-size: small;color: red" class="page_text">共<%= page %>页</td>
+                    </tr>
+                </tfoot>
             </table>
         </div>
         <div class="set_teacher_div" id="set_teacher_div">
@@ -127,7 +142,7 @@
                     <td><button style="border: none;" onclick="errGrade()">成绩错误</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="downGrade()">不及格成绩</button></td>
+                    <td><button style="border: none;" onclick="downGrade()">挂科成绩</button></td>
                 </tr>
                 <tr>
                     <td><button style="border: none;" onclick="alert('想啥呢？')">删除成绩</button></td>

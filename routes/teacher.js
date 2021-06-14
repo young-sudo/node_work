@@ -6,7 +6,7 @@ router.all('/', (req, res, next) => {
    if (req.session.user != undefined && req.session.user.identity == '老师') {
       var sql = 'select islogout from member where user = ?'
       connection.query(sql, [req.session.user.user], function (err, results, fields) {
-         if (err != null) {
+         if (err) {
             console.log(err);
             res.render("error", { text: err });
          } else {
@@ -24,16 +24,20 @@ router.all('/', (req, res, next) => {
 })
 
 router.get('/', function (req, res, next) {
-   let sql ='SELECT t.studentNumber,s.name,s.sex,s.score,s.exam,s.type,t.teacherNumber,t.teacherName from v_student s INNER JOIN v_stu_tea t on s.user = t.studentUser where t.teacherName = ?'
+   let sql ='SELECT * FROM v_score WHERE teacherName = ? limit 0,10'
    connection.query(sql,[req.session.user.name], function (err,rows) {
       // 在user中添加一行数据
       req.session.user.title = req.session.user.name + '的所有学生';
-      //  console.log(req.session.user)
       if (err) { throw err};
-      // console.log(rows)
-      res.render("student_teacher", {
-         list: rows,
-         key: req.session.user
+      let results = rows;
+      connection.query('select count(studentNumber) sum from v_score where teacherName = ? limit 0,10',[req.session.user.name], function (err,rows) {
+         if(err){throw err};
+         let page =parseInt(rows[0].sum/10) + 1;
+         res.render("student_teacher", {
+            list: results,
+            key: req.session.user,
+            page:page
+         })
       })
    })
 
@@ -42,7 +46,7 @@ router.get('/', function (req, res, next) {
 router.post('/exam', function (req, res, next) {
    // console.log(req.body);
    // console.log(req.body.type);
-   let sql = "select name,sex,score,exam,studentNumber number,type from v_score where exam = ? && teacherName = ?"
+   let sql = "select name,sex,score,exam,studentNumber number,type from v_score where exam = ? && teacherName = ? limit 0,10"
    connection.query(sql, [req.body.type,req.session.user.name], function (err, rows) {
       // console.log(results)
       if (err) {throw err};
@@ -50,7 +54,7 @@ router.post('/exam', function (req, res, next) {
    })
 });
 router.get('/search',(req,res) => {
-   var sql = "select * from v_student where name = "+ connection.escape(req.query.data)
+   let sql = "select * from v_student where name = "+ connection.escape(req.query.data)
    + " UNION SELECT * from v_student where number = "+ connection.escape(req.query.data)
    + " UNION SELECT * from v_student where sex = "+ connection.escape(req.query.data)
    + " UNION SELECT * from v_student where type = "+ connection.escape(req.query.data)
@@ -58,7 +62,7 @@ router.get('/search',(req,res) => {
    + " UNION SELECT * from v_student where exam = "+ connection.escape(req.query.data)
    ;
    connection.query(sql,(err,rows) => {
-     if(err != null){throw err};
+     if(err){throw err};
      res.send(rows)
    })
 })

@@ -108,7 +108,7 @@ function update() {
     <td><input type="text" value="${i.age}"></td>
     <td><input type="text" value="${i.user}"></td>
     <td><input type="text" value="${i.password}"></td>
-    <td><input type="text" value="${i.Email}"></td>
+    <td><input type="text" value="${i.Email}" style="width: 140px;"></td>
     <td><input type="text" value="${i.identity}"></td>
     <td><input type="text" value="${i.islogout}"></td>
     <td><input type="text" value="${i.create_time}" style="width: 150px;"></td>

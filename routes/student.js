@@ -27,9 +27,15 @@ router.get('/', function (req, res) {
    connection.query('select studentNumber,name,sex,score,exam,type from v_score where name = ?', [req.session.user.name], function (err, rows) {
       req.session.user.title = req.session.user.name;
       if (err) {throw err};
-      res.render("student_teacher", {
-         list: rows,
-         key: req.session.user
+      let results = rows;
+      connection.query('select count(studentNumber) sum from v_score where name = ? limit 0,10',[req.session.user.name], function (err,rows) {
+         if(err){throw err};
+         let page =parseInt(rows[0].sum/10) + 1;
+         res.render("student_teacher", {
+            list: results,
+            key: req.session.user,
+            page:page
+         })
       })
    })
 
