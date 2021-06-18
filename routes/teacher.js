@@ -54,12 +54,13 @@ router.post('/exam', function (req, res, next) {
    })
 });
 router.get('/search',(req,res) => {
-   let sql = "select * from v_student where name = "+ connection.escape(req.query.data)
-   + " UNION SELECT * from v_student where number = "+ connection.escape(req.query.data)
-   + " UNION SELECT * from v_student where sex = "+ connection.escape(req.query.data)
-   + " UNION SELECT * from v_student where type = "+ connection.escape(req.query.data)
-   + " UNION SELECT * from v_student where score = " + connection.escape(req.query.data)
-   + " UNION SELECT * from v_student where exam = "+ connection.escape(req.query.data)
+   let sql_index = req.query.data;
+   let sql = "select * from v_student where name like "+ connection.escape('%'+ sql_index +'%')
+   + " UNION SELECT * from v_student where number like "+ connection.escape('%'+ sql_index +'%')
+   + " UNION SELECT * from v_student where sex like "+ connection.escape('%'+ sql_index +'%')
+   + " UNION SELECT * from v_student where type like "+ connection.escape('%'+ sql_index +'%')
+   + " UNION SELECT * from v_student where score like " + connection.escape('%'+ sql_index +'%')
+   + " UNION SELECT * from v_student where exam like "+ connection.escape('%'+ sql_index +'%')
    ;
    connection.query(sql,(err,rows) => {
      if(err){throw err};

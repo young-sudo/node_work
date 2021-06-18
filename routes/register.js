@@ -27,9 +27,7 @@ router.post('/', (req, res) => {
     var sql = "INSERT INTO member(number,name,sex,age,user,password,Email,identity,create_time) VALUES(?,?,?,?,?,?,?,?,?)"
     connection.query(sql,
         [user.number, user.name, user.sex, user.age, user.user, user.password, user.Email, user.identity, user.create_time], function (err, results, fields) {
-            if (err != null) {
-                throw err;
-            }
+            if (err) {throw err};
             if (req.session.user != undefined) {
                 // console.log(req.session.user)          //session
                 if (req.session.user.identity == '学生') {
@@ -45,6 +43,17 @@ router.post('/', (req, res) => {
             }
 
         });
+        //当身份是学生时，直接查询刚刚插入成功的数据,然后将数据插入到tab_stu_tea 表中。默认老师为 5号李白
+        if( user.identity == '学生'){
+            connection.query('select id from member where user = ?',[user.user],(err,rows) => {
+                if(err){throw err};
+                let stu_id = rows[0].id;
+                let sql = 'INSERT INTO tab_stu_tea VALUES (null,?,?)';
+                connection.query(sql,[stu_id,5],(err,rows) => {
+                    if(err){throw err};
+                })
+            }) 
+        }    
 });
 
 router.post('/number', (req, res) => {

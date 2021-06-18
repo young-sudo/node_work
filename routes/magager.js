@@ -100,7 +100,6 @@ router.post('/search', (req, res) => {
         + " UNION SELECT * from member where number like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where sex like " + connection.escape('%' + search_inp + '%')
         + " UNION SELECT * from member where identity like " + connection.escape('%' + search_inp + '%') + " UNION SELECT * from member where islogout like " + connection.escape('%' + search_inp + '%')
         + " UNION SELECT * from member where Email like " + connection.escape('%' + search_inp + '%');
-
     connection.query(sql, function (err, rows) {
         if (err) { throw err;}
         format(rows);
@@ -116,7 +115,7 @@ router.post('/change', (req, res) => {
     var c_value = req.body.value;        //改变后的input值
     var c_index = req.body.index;           //改变的input的列名 id，number，user等
     var c_id = req.body.id;             //错误的原因：它是不会发生变化的 ; 解决方法：在前面改变它
-    connection.query('update member set  ' + c_index + ' = ? where id = ?', [c_value, c_id], function (err, results) {
+    connection.query('update member set  ' + c_index + ' = ? where id = ?', [c_value, c_id], function (err, rows) {
         if (err) {
             res.send('error')
         } else {

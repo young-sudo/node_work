@@ -132,51 +132,68 @@ router.get('/select',(req,res) => {
     })
 })
 router.get('/selectAll',(req,res) => {
-    let sql = 'select name,sex,score,exam,studentNumber number,type from v_score ';
+    let sql = 'select name,sex,score,exam,studentNumber number,type from v_score ORDER BY score DESC limit 0,10';
     connection.query(sql,(err,rows) => {
         if(err) {throw err};
-        res.send(rows)
+        let results = {};
+        results.main = rows;
+        connection.query('SELECT COUNT(*) sum FROM v_score',(err,rows) => {
+            if(err) {throw err};
+            results.page = parseInt(rows[0].sum/10)+1;
+            res.send(results);
+        })
+    })
+})
+router.post('/paging', (req, res) => {
+    let page = (req.body.page - 1) * 10;
+    let exam = req.body.new_exam;
+    
+    let sql = 'select name,sex,score,exam,studentNumber number,type from v_score ORDER BY score DESC limit ?,10';
+     connection.query(sql, [page], (err, rows) => {
+        if (err) { throw err };
+        res.send(rows);
     })
 })
 
 //student 
 router.post('/errGrade',(req,res) => {
-    // console.log(req.body);
-    connection.query('select * from v_stu_tea where studentUser = ?',[req.body.user],(err,rows) =>{
+    connection.query('select * from v_stu_tea where studentName = ?',[req.body.name],(err,rows) =>{
         if(err){throw err};
-        // console.log(rows);
-        let user = rows[0].teacherUser;
-        let sql = 'select * from member where Email = ? && user = ?';
-        connection.query(sql,[req.body.email,user],(err,rows) => {
-            if(err){throw err};
-            // console.log(rows);
-            if(rows[0] == undefined){
-                res.send('老师邮箱错误')
-            }else{
-                connection.query('select Email from member where user = ?',[req.body.user],(err,rows) => {
-                    if(err){throw err};
-                    // console.log(rows);
-                    let studentEmail = rows[0].Email;
-                    let email = {
-                        title: '成绩错误，请求复查',
-                        body: `
-                <h1>${user}老师，您好：</h1>
-                <p style="font-size: 18px;color:#000;">
-                    <span style="font-size: 16px;color:#f00;"> ${req.body.text} </span>  
-                </p>
-                `
-                    }
-                    let emailCotent = {
-                        from: studentEmail, // 发件人地址
-                        to: req.body.email, // 收件人地址，多个收件人可以使用逗号分隔
-                        subject: email.title, // 邮件标题
-                        html: email.body // 邮件内容
-                    };
-                    sendEmail.send(emailCotent);
-                    res.send('0');
-                })               
-            }
-        })
+        if(rows[0] != undefined) {
+            let uname = rows[0].teacherName;
+            let sql = 'select * from member where Email = ? && name = ?';
+            connection.query(sql,[req.body.email,uname],(err,rows) => {
+                if(err){throw err};
+                if(rows[0] == undefined){
+                    res.send('老师邮箱错误')
+                }else{
+                    connection.query('select Email from member where name = ?',[req.body.name],(err,rows) => {  //查自己的邮箱
+                        if(err){throw err};
+                        let studentEmail = rows[0].Email;
+                        let email = {
+                            title: '成绩错误，请求复查',
+                            body: `
+                    <h1>${uname}老师，您好：</h1>
+                    <p style="font-size: 18px;color:#000;">
+                        <span style="font-size: 16px;color:#f00;"> ${req.body.text} </span>  
+                    </p>
+                    `
+                        }
+                        let emailCotent = {
+                            from: studentEmail, // 发件人地址
+                            to: req.body.email, // 收件人地址，多个收件人可以使用逗号分隔
+                            subject: email.title, // 邮件标题
+                            html: email.body // 邮件内容
+                        };
+                        sendEmail.send(emailCotent);
+                        res.redirect('http://localhost:3000/student');          // 回复的内容
+                    })          
+                }
+            })
+        }else{
+            res.send('你还没有老师');          // 回复的内容
+        }
+    
     })        
 })
 module.exports = router;

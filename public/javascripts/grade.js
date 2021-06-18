@@ -1,4 +1,6 @@
 $(document).ready(function () {
+    //更换背景图片
+    img(5);    //参数为图片更换时长。
     //重置
     $('#but_reset').click(function () {
         fun_reset();
@@ -228,4 +230,31 @@ function fun_reset() {
     $('input')[3].value = '';
     $('input')[4].value = '';
     $('input')[5].value = '';
+}
+//背景图片
+function img(T) {
+    let t = 0; let _img; let arr = [];
+    let time = setInterval(() => {
+         t++; count = t % 3;
+        if (count === 0) {
+            _img = "grade.jpg";
+        } else if (count === 1) {
+            _img = "student.PNG"
+        } else {
+            _img = "register1.jpg";
+        }
+        $('body')[0].style.background = "url(" + "/images/" + _img + ") ";
+        $('body')[0].style.backgroundSize = "100% 160%";
+    }, T*1000);
+    let i = 0;
+    $('#img_but').click(()=>{
+        i = i+1;
+        if(i % 2 === 0){
+            img(T);
+            $('#img_but')[0].value = 'O';
+        }else{
+            clearInterval(time);
+            $('#img_but')[0].value = 'S';
+        }    
+    })
 }

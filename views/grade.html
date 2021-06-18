@@ -9,101 +9,113 @@
     <script src="/javascripts/jquery.min.js"></script>
     <script src="/javascripts/grade.js"></script>
     <style>
-        body{
+        body {
             background-image: url('/images/grade.jpg');
             background-size: 100% 160%;
         }
-        #big_div{
+        #big_div {
             border: 1px solid red;
             border-radius: 5px;
             position: relative;
             left: 30%;
         }
         #page_but {
-            border:none;
+            border: none;
             width: 100%;
+        }
+        .img_div{
+            width: 55px;
+            height: 30px;
+            position: relative;
+            top: 54px;
+            left: 94%;  
         }
     </style>
 </head>
 <body>
     <div id="big_div" style="width: 430px;height: 500px;">
-        <h3 style="text-align: center;"><%= key.title %></h3>
-       <form>
-        <table class="table ">
-            <tbody>
-                <tr>
-                    <td>学生姓名:
-                        <input type="text" placeholder="name" />
-                        <span></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>学生编号:
-                        <input type="number" placeholder="number"/>
-                        <span></span></td>
-                </tr>
-                <tr>
-                    <td>学生性别:
-                        <input type="text" list="sex_a" placeholder="sex" />
-                        <datalist id="sex_a">
-                            <option>男</option>
-                            <option>女</option>
-                        </datalist>
-                        <span></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>学生成绩:
-                        <input type="number" placeholder="score" />
-                        <span></span></td>
-                </tr>
-                <tr>
-                    <td>考试类型:
-                        <input type="text" placeholder="exam" list="exam_a">
-                        <datalist id="exam_a">
-                            <option>周考</option>
-                            <option>月考</option>
-                            <option>期中考</option>
-                            <option>期末考</option>
-                            <option>联考</option>
-                        </datalist>
-                        <span></span>
-                    </td>
-                </tr>
-                <tr>
-                    <td>考试科目:
-                        <input type="text" placeholder="type" list="exam_b">
-                        <datalist id="exam_b">
-                            <option>语文</option>
-                            <option>数学</option>
-                            <option>英语</option>
-                            <option>物理</option>
-                            <option>化学</option>
-                            <option>生物</option>
-                            <option>政治</option>
-                            <option>历史</option>
-                            <option>地理</option>
-                            <option>体育</option>
-                        </datalist>
-                        <span></span>
-                    </td>
-                </tr>
-              
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td style="text-align: center;">
-                        <input type="button" id="but_reset" value="重置"/>
-                        <input type="button" id="but_sub" value="提交"/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><button id="page_but">小窗口</button></td>
-                </tr>
-            </tfoot>
-           
-        </table>
-       </form>
-       </div>
+        <h3 style="text-align: center;">
+            <%= key.title %>
+        </h3>
+        <form>
+            <table class="table ">
+                <tbody>
+                    <tr>
+                        <td>学生姓名:
+                            <input type="text" placeholder="name" />
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>学生编号:
+                            <input type="number" placeholder="number" />
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>学生性别:
+                            <input type="text" list="sex_a" placeholder="sex" />
+                            <datalist id="sex_a">
+                                <option>男</option>
+                                <option>女</option>
+                            </datalist>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>学生成绩:
+                            <input type="number" placeholder="score" />
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>考试类型:
+                            <input type="text" placeholder="exam" list="exam_a">
+                            <datalist id="exam_a">
+                                <option>周考</option>
+                                <option>月考</option>
+                                <option>期中考</option>
+                                <option>期末考</option>
+                                <option>联考</option>
+                            </datalist>
+                            <span></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>考试科目:
+                            <input type="text" placeholder="type" list="exam_b">
+                            <datalist id="exam_b">
+                                <option>语文</option>
+                                <option>数学</option>
+                                <option>英语</option>
+                                <option>物理</option>
+                                <option>化学</option>
+                                <option>生物</option>
+                                <option>政治</option>
+                                <option>历史</option>
+                                <option>地理</option>
+                                <option>体育</option>
+                            </datalist>
+                            <span></span>
+                        </td>
+                    </tr>
+
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <td style="text-align: center;">
+                            <input type="button" id="but_reset" value="重置" />
+                            <input type="button" id="but_sub" value="提交" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><button id="page_but">小窗口</button></td>
+                    </tr>
+                </tfoot>
+
+            </table>
+        </form>
+        <div class="img_div"><input type="button" id="img_but" value="O"/></div>
+    </div>
 </body>
 </html>

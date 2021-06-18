@@ -18,13 +18,13 @@
                 <div class="img_div"></div>
                 <span style="position: relative;top: -84px;left: 0px;">&nbsp;打卡 </span>
                 <div class="left_span">
-                    <span style="font-size: 25px;" id="user">
+                    <span style="font-size: 25px;" id="user" student_name= "<%= key.name %>">
                         <%=key.user %>
                     </span>
                     <div class="img_qq"><img src="/images/student1.png" width="40px" height="40px"></div>
                     <div class="img_qq_big"><img src="/images/student1.png" width="200px" height="200px"></div>
                     <br>
-                    <p id="identity">
+                    <p id="identity" identity="<%= key.identity %>">
                         <%= key.identity %>
                     </p>
                 </div>
@@ -32,25 +32,25 @@
             <div>
                 <table class="table" id="gongneng">
                     <tr>
-                        <td class="left_type">账号详情</td>
+                        <td class="left_type" id="Account details">账号详情</td>
                     </tr>
                     <tr>
-                        <td class="left_type">周考<span style="float: right;">></span></td>
+                        <td class="left_type" id="weekly exam">周考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td class="left_type">月考<span style="float: right;">></span></td>
+                        <td class="left_type" id="monthly exam">月考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td class="left_type">期中考<span style="float: right;">></span></td>
+                        <td class="left_type" id="mid-term exam">期中考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td class="left_type">期末考<span style="float: right;">></span></td>
+                        <td class="left_type" id="final exam">期末考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td class="left_type">联考<span style="float: right;">></span></td>
+                        <td class="left_type" id="united examination">联考<span style="float: right;">></span></td>
                     </tr>
                     <tr>
-                        <td class="left_type">问题反馈<span>?</span></td>
+                        <td class="left_type" id="problem feedback">问题反馈<span>?</span></td>
                     </tr>
                 </table>
                 <div class="set_div">
@@ -109,12 +109,12 @@
 
                 </tbody>
                 <tfoot style="text-align: center; font-size:xx-small;">
-                    <tr num='<%= page %>'>  
-                        <td class="paging">首页</td>
-                        <td class="paging">上一页</td>
-                        <td class="paging page_p">1</td>
-                        <td class="paging">下一页</td>
-                        <td class="paging">尾页</td>
+                    <tr class="page_num" page='<%= page %>'>  
+                        <td class="paging" id="homePage">首页</td>
+                        <td class="paging" id="pageUp">上一页</td>
+                        <td class="paging page_p" id="thisPage">1</td>
+                        <td class="paging" id="nextPage">下一页</td>
+                        <td class="paging" id="trailerPage">尾页</td>
                         <td style="text-align: right; font-size: small;color: red" class="page_text">共<%= page %>页</td>
                     </tr>
                 </tfoot>
@@ -145,10 +145,10 @@
                     <td><button style="border: none;" onclick="downGrade()">挂科成绩</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('想啥呢？')">删除成绩</button></td>
+                    <td><button style="border: none;" onclick="myteacher()">我的老师</button></td>
                 </tr>
                 <tr>
-                    <td><button style="border: none;" onclick="alert('no')">关于网站...</button></td>
+                    <td><button style="border: none;" onclick="but_chose()">选择老师</button></td>
                 </tr>
             </table>
         </div>
@@ -163,7 +163,7 @@
                     <p style="text-align: center;"> Send Email </p>
                 </div>
                 <div class="err_bottom_div">
-                    <input type="hidden" value="<%=key.user %>" name="user">
+                    <input type="hidden" value="<%=key.name %>" name="name">
                     Send to teacher :<input type="email" id='s_email' name="email"
                         style="width: 320px;height:30px; float: right;" />
                     <textarea name="text" id='s_text' style="margin: 0px;width: 449px;height: 100px;resize:none;"
@@ -171,6 +171,20 @@
                     <p><input type="reset" />&nbsp;&nbsp;&nbsp;<input type="submit" id="but_errGrade" value="提交" /></p>
                 </div>
             </form>
+        </div>
+        <div class="choseTeacher">
+            <div class="ch_left">
+                <h5>我的老师</h5>
+                <table class="table">
+                    <tr><td></td></tr>
+                </table>
+            </div>
+            <div class="ch_right">
+                <h5>所有老师</h5>
+                <table class="table">
+                   <tr><td><input type="text" value=""></td></tr>
+                </table>
+            </div>
         </div>
     </div>
 </body>

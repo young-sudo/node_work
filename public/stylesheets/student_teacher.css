@@ -110,7 +110,7 @@
     height: 180px;
     background-color: white;
     position: relative;
-    left: 305px;
+    left: 20%;
     top: 500px;
     display: none;
 }
@@ -122,7 +122,7 @@
     height: 180px;
     background-color: white;
     position: relative;
-    left: 307px;
+    left: 20%;
     top: 500px;
     display: none;
 }
@@ -178,4 +178,35 @@ img{
     position: absolute;
     top: 0px;
     left: 433px;
+}
+.choseTeacher{
+    background-color: white;
+    width: 300px;
+    height: 200px;
+    position: absolute;
+    left: 29%;
+    top: 500px;
+    border: 1px solid black;
+    text-align: center;
+    display: none;
+}
+.ch_left{
+    width: 150px;
+    border: 1px solid black;
+    height: 100%;
+    position: absolute;
+}
+.ch_right{
+    border: 1px solid black;
+    height: 100%;
+    width: 150px;
+    position: absolute;
+    left: 150px;
+}
+.choseTeacher tr{
+    height: 25px;
+}
+.choseTeacher input{
+    width: 100px;
+    height: 24px;
 }
