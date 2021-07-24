@@ -17,6 +17,8 @@ var teacherRouter =require('./routes/teacher');
 var detailsRouter =require('./routes/details');
 var forgetRouter =require('./routes/forget');
 var gradeRouter =require('./routes/grade');
+var uploadRouter =require('./routes/upload');
+
 var app = express();
 
 // view engine setup
@@ -51,5 +53,7 @@ app.use('/details',detailsRouter);
 app.use('/forget',forgetRouter);
 // 成绩
 app.use('/grade',gradeRouter);
+//图片上传
+app.use('/upload',uploadRouter)
 
 module.exports = app;

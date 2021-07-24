@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="/javascripts/ckeditor.js"></script>
+    <script src="/javascripts/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="editor">
+        <p>Here goes the initial content of the editor.</p>
+    </div>
+    <input type="button" id="submit" value="提交" />
+    <script>
+        let editor;
+
+        ClassicEditor
+            .create(document.querySelector('#editor'),{
+                ckfinder:{
+                    uploadUrl : "http://localhost:3000/upload/uploadImg"
+                }
+            })
+            .then(newEditor => {
+                editor = newEditor;
+            })
+            .catch(error => {
+                console.error(error);
+            });
+
+        // Assuming there is a <button id="submit">Submit</button> in your application.
+        document.querySelector('#submit').addEventListener('click', () => {
+            const editorData = editor.getData();
+            // window.location.href = 'http://localhost:3000/show?content='+editorData  // get方法传的参数有限
+            $.post('http://localhost:3000/upload/show',{data:editorData},(data) => {     
+                if(data === '1'){window.location.href = 'http://localhost:3000/upload/show';}
+            });
+        });
+    </script>
+</body>
+</html>
